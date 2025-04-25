@@ -56,13 +56,19 @@ class World {
                 });
                 if (!(enemy instanceof Endboss)) { // If the enemy is not an Endboss
                     this.characterKillEnemy(enemy);
+                } else if (enemy instanceof Endboss) { // If the enemy is an Endboss
+                    this.level.enemies[0].endbosslife -= 20 // Reduce the Endboss's life
+                    this.bossStatusBar.setBossPercentage(this.level.enemies[0].endbosslife)
+                    if (this.level.enemies[0].endbosslife <= 0) { // If the Endboss's life is 0 or less
+                        this.level.enemies[0].alive = false; // Set the Endboss as dead
+                    }
                 }
             }
         });
     }
 
     bottleColliding(enemy) {
-        return this.throwableObjects.some(throwable => throwable.isColliding(enemy) && enemy.alive);
+        return this.throwableObjects.some(throwable => throwable.isColliding(enemy) && enemy.alive && throwable.bottlecontact === false); // Check if the throwable object collides with the enemy and is not already marked as having hit the enemy
     }
 
     coinCollision() {

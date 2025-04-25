@@ -1,20 +1,20 @@
-const level_end_x = 3250;
+const level_end_x = 4050;
 
 const level1 = new Level(
-    [
-        new Chicken(level_end_x),
-        new Chicken(level_end_x),
-        new Chicken(level_end_x),
-        new Chicken(level_end_x),
-        new Chicken(level_end_x),
-        new Chicken(level_end_x),
-        new SmallChicken(level_end_x),
-        new SmallChicken(level_end_x),
-        new SmallChicken(level_end_x),
-        new SmallChicken(level_end_x),
-        new SmallChicken(level_end_x),
-        new SmallChicken(level_end_x),
+    [   
         new Endboss(level_end_x),
+        new Chicken(level_end_x),
+        new Chicken(level_end_x),
+        new Chicken(level_end_x),
+        new Chicken(level_end_x),
+        new Chicken(level_end_x),
+        new Chicken(level_end_x),
+        new SmallChicken(level_end_x),
+        new SmallChicken(level_end_x),
+        new SmallChicken(level_end_x),
+        new SmallChicken(level_end_x),
+        new SmallChicken(level_end_x),
+        new SmallChicken(level_end_x),
     ],
     [
         new Cloud(level_end_x),
@@ -48,6 +48,10 @@ const level1 = new Level(
         new BackgroundObject('img/5_background/layers/3_third_layer/1.png', 799*4),
         new BackgroundObject('img/5_background/layers/2_second_layer/1.png', 799*4),
         new BackgroundObject('img/5_background/layers/1_first_layer/1.png', 799*4),
+        new BackgroundObject('img/5_background/layers/air.png', 799*5),
+        new BackgroundObject('img/5_background/layers/3_third_layer/2.png', 799*5),
+        new BackgroundObject('img/5_background/layers/2_second_layer/2.png', 799*5),
+        new BackgroundObject('img/5_background/layers/1_first_layer/2.png', 799*5),
     ],
     [
         new Coin(level_end_x),
@@ -57,6 +61,10 @@ const level1 = new Level(
         new Coin(level_end_x),
     ],
     [
+        new Bottle(level_end_x),
+        new Bottle(level_end_x),
+        new Bottle(level_end_x),
+        new Bottle(level_end_x),
         new Bottle(level_end_x),
         new Bottle(level_end_x),
         new Bottle(level_end_x),

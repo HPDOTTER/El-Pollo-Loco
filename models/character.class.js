@@ -2,6 +2,8 @@ class Character extends MovableObject {
     height = 230;
     y = 180; 
     speed = 10;
+    alive = true;
+    deadAnimationTriggered = false;
     
     Images_walking = 
         Array(2).fill('img/2_character_pepe/2_walk/W-21.png')
@@ -65,8 +67,13 @@ class Character extends MovableObject {
     animate() {
         setStoppableInterval(() => {
             if (this.isDead()) { // dead animation
+                if (!this.deadAnimationTriggered) {
+                    this.speedY += 40;
+                    this.deadAnimationTriggered = true;
+                }
+                this.alive = false;
                 this.playAnimation(this.Images_dead);
-            } else if (this.world.Keyboard.SPACE || this.world.Keyboard.UP && !this.isAboveGround()) {
+            } else if (this.world.Keyboard.SPACE || this.world.Keyboard.UP && !this.isAboveGround() && this.alive) {
                 this.jump(); // jump animation
             } else if (this.isAboveGround()) { // jump animation
                 this.playAnimation(this.Images_jumping);
@@ -87,16 +94,16 @@ class Character extends MovableObject {
                     this.world.bottleStatusBar.setBottlePercentage(this.bottlebar);
                 }
             }
-            if ((this.world.Keyboard.RIGHT || this.world.Keyboard.LEFT) && !this.isAboveGround() && this.speed > 0) {
+            if ((this.world.Keyboard.RIGHT || this.world.Keyboard.LEFT) && !this.isAboveGround() && this.speed > 0 && this.alive) {
                 //walk animation
                 this.playAnimation(this.Images_walking);
             }
-            if (this.world.Keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.Keyboard.RIGHT && this.x < this.world.level.level_end_x && this.alive) {
                 otherDirection = false;
                 this.otherDirection = false;
                 this.moveRight();
             }
-            if (this.world.Keyboard.LEFT && this.x > 0) {
+            if (this.world.Keyboard.LEFT && this.x > 0 && this.alive) {
                 otherDirection = true;
                 this.otherDirection = true;
                 this.moveLeft();

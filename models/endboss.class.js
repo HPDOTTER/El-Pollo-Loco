@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     width = 300;
     y = 185;
     alive = true;
+    endbosslife = 100;
     
     Endboss_allert = Array(12).fill('./img/4_enemie_boss_chicken/2_alert/G5.png')
     .concat(Array(12).fill('./img/4_enemie_boss_chicken/2_alert/G6.png'))
@@ -45,6 +46,7 @@ class Endboss extends MovableObject {
 
     animate(){
         setStoppableInterval(() => {
+            
             this.playAnimation(this.Endboss_allert);
         }, 1000 / 60);
     }
