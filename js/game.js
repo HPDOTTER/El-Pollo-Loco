@@ -9,6 +9,7 @@ function init() {
 }
 
 function startGame() {
+    initLevel1();
     world = new World(canvas, Keyboard);
     document.getElementById('menu').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'inline-block';
