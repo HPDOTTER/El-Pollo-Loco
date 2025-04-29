@@ -26,6 +26,17 @@ h1 {
     margin-bottom: 20px;
 }
 
+h2 {
+    font-size: 2.5em;
+    font-family: 'Boogaloo', sans-serif;
+    text-shadow: 2px 2px 1px #00000070;
+    margin-bottom: 20px;
+}
+
+p {
+    font-family: 'Boogaloo', sans-serif;
+}
+
 .canvas-wrapper {
     position: relative;
 }
@@ -41,7 +52,6 @@ canvas {
 
 button {
     font-family: 'Boogaloo', sans-serif;
-    letter-spacing: 2px;
 }
 
 #pauseButton {
@@ -90,7 +100,7 @@ button {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
 }
 
-#menu div {
+.menudiv {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -99,6 +109,12 @@ button {
     text-align: center;
     width: 100%;
     height: 100%;
+    background-image: url(./img/9_intro_outro_screens/start/startscreen_2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    background-size: 110% 100%;
 }
 
 #menu h1 {
@@ -121,14 +137,26 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #e85e00;
-    color: black;
+    background-color: rgba(0, 0, 0, 0.87);
+    color: orange;
 }
 
 #menu button:hover {
     background-color: #e05a01;
     transform: scale(1.1);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.textarea {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    align-items: center;
+    text-align: center;
 }
 
 #popup {
@@ -146,12 +174,14 @@ button {
     z-index: 1000;
 }
 #popup p {
+    font-size: 26px;
     margin: 10px;
+    font-family: 'Boogaloo', sans-serif;
 }
 
 #popup button {
-    font-size: 34px;
-    margin: 10px;
+    font-size: 25px;
+    margin: 8px;
     padding: 6px 16px;
     border: none;
     border-radius: 5px;
@@ -236,6 +266,21 @@ button {
 
 .backtomenu:hover {
     background-color: #d32f2f;
+}
+
+.gameover {
+    background-image: url(./img/9_intro_outro_screens/game_over/game\ over!.png) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    border-radius: 10px !important;
+}
+
+.wongame {
+    background-image: url(./img/9_intro_outro_screens/win/win_2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
 }
 
 /* smartphone */

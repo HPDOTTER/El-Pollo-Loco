@@ -21,7 +21,6 @@ function stopGame() {
     stopAllIntervals();
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'inline-block';
-    gameStarted = false;
 }
 
 function resumeGame() {
@@ -38,12 +37,56 @@ function showInstructions() {
 }
 
 function toMainMenu() {
-    window.location.reload();
+    stopAllIntervals();
+    world = null;
+    document.getElementById('menu').style.display = 'flex';
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('pauseButton').style.display = 'none';
+    document.getElementById('playButton').style.display = 'none';
+    canvas.style.display = 'none';
+    if (window.allIntervals) {
+        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
+        window.allIntervals = [];
+    }
+    div = document.getElementById('menu');
+    div.innerHTML = mainMenuTemplate();
 }
 
 function showCredits(){
     div = document.getElementById('menu');
     div.innerHTML = creditsTemplate();
+}
+
+function showGameOver() {
+    stopAllIntervals();
+    world = null;
+    document.getElementById('menu').style.display = 'flex';
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('pauseButton').style.display = 'none';
+    document.getElementById('playButton').style.display = 'none';
+    canvas.style.display = 'none';
+    if (window.allIntervals) {
+        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
+        window.allIntervals = [];
+    }
+    div = document.getElementById('menu');
+    div.innerHTML = gameOverTemplate();
+}
+
+function showYouWin() {
+    stopAllIntervals();
+    world = null;
+    document.getElementById('menu').style.display = 'flex';
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('pauseButton').style.display = 'none';
+    document.getElementById('playButton').style.display = 'none';
+    canvas.style.display = 'none';
+    if (window.allIntervals) {
+        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
+        window.allIntervals = [];
+    }
+    div = document.getElementById('menu');
+    div.innerHTML = youWinTemplate();
 }
 
 window.addEventListener("keydown", (e) => {
@@ -89,6 +132,7 @@ window.addEventListener("keydown", (e) => {
         popup.style.display = 'block';
         document.getElementById('confirmButton').addEventListener('click', () => {
             toMainMenu();
+            gameStarted = false;
         });
         document.getElementById('cancelButton').addEventListener('click', () => {
             const popup = document.getElementById('popup');
@@ -127,3 +171,4 @@ window.addEventListener("touchend", (e) => {
         Keyboard.DOWN = false;
     }
 });
+

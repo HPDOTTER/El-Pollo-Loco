@@ -6,54 +6,54 @@ class Character extends MovableObject {
     deadAnimationTriggered = false;
     
     Images_walking = 
-        Array(2).fill('img/2_character_pepe/2_walk/W-21.png')
-        .concat(Array(2).fill('img/2_character_pepe/2_walk/W-22.png'))
-        .concat(Array(2).fill('img/2_character_pepe/2_walk/W-23.png'))
-        .concat(Array(2).fill('img/2_character_pepe/2_walk/W-24.png'))
-        .concat(Array(2).fill('img/2_character_pepe/2_walk/W-25.png'))
-        .concat(Array(2).fill('img/2_character_pepe/2_walk/W-26.png'));
+        Array(2).fill('./img/2_character_pepe/2_walk/W-21.png')
+        .concat(Array(2).fill('./img/2_character_pepe/2_walk/W-22.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/2_walk/W-23.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/2_walk/W-24.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/2_walk/W-25.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/2_walk/W-26.png'));
 
     Images_jumping = 
-        Array(2).fill('img/2_character_pepe/3_jump/J-31.png')
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-32.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-33.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-34.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-35.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-36.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-37.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-38.png'))
-        .concat(Array(2).fill('img/2_character_pepe/3_jump/J-39.png'));
+        Array(2).fill('./img/2_character_pepe/3_jump/J-31.png')
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-32.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-33.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-34.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-35.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-36.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-37.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-38.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/3_jump/J-39.png'));
 
     Images_hurt = 
-        Array(3).fill('img/2_character_pepe/4_hurt/H-41.png')
-        .concat(Array(3).fill('img/2_character_pepe/4_hurt/H-42.png'))
-        .concat(Array(3).fill('img/2_character_pepe/4_hurt/H-43.png'));
+        Array(3).fill('./img/2_character_pepe/4_hurt/H-41.png')
+        .concat(Array(3).fill('./img/2_character_pepe/4_hurt/H-42.png'))
+        .concat(Array(3).fill('./img/2_character_pepe/4_hurt/H-43.png'));
 
     Images_dead = 
-        Array(2).fill('img/2_character_pepe/5_dead/D-51.png')
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-52.png'))
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-53.png'))
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-54.png'))
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-55.png'))
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-56.png'))
-        .concat(Array(2).fill('img/2_character_pepe/5_dead/D-57.png'));
+        Array(2).fill('./img/2_character_pepe/5_dead/D-51.png')
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-52.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-53.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-54.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-55.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-56.png'))
+        .concat(Array(2).fill('./img/2_character_pepe/5_dead/D-57.png'));
 
     Images_idle =
-        Array(5).fill('img/2_character_pepe/1_idle/idle/I-1.png')
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-2.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-3.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-4.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-5.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-6.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-7.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-8.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-9.png'))
-        .concat(Array(5).fill('img/2_character_pepe/1_idle/idle/I-10.png'));
+        Array(5).fill('./img/2_character_pepe/1_idle/idle/I-1.png')
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-2.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-3.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-4.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-5.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-6.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-7.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-8.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-9.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/1_idle/idle/I-10.png'));
     world;
 
 
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.Images_walking);
         this.loadImages(this.Images_jumping);
         this.loadImages(this.Images_idle);
@@ -73,6 +73,14 @@ class Character extends MovableObject {
                 }
                 this.alive = false;
                 this.playAnimation(this.Images_dead);
+                setTimeout(() => {
+                    stopAllIntervals();
+                    if (window.allIntervals) {
+                        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
+                        window.allIntervals = [];
+                    }
+                    showGameOver();
+                }, 2000);
             } else if (this.world.Keyboard.SPACE || this.world.Keyboard.UP && !this.isAboveGround() && this.alive) {
                 this.jump(); // jump animation
             } else if (this.isAboveGround()) { // jump animation
@@ -87,7 +95,7 @@ class Character extends MovableObject {
 
         setStoppableInterval(() => { // throw bottle
             if (this.world.Keyboard.DOWN && this.world.character.bottlebar !== 0) {
-                if (!this.lastThrow || new Date().getTime() - this.lastThrow > 150) {
+                if (!this.lastThrow || new Date().getTime() - this.lastThrow > 200) {
                     this.world.throwableObjects.push(new ThrowableObject(this.x, this.y));
                     this.lastThrow = new Date().getTime();
                     this.world.character.bottlebar -= 20;

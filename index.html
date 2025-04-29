@@ -32,9 +32,11 @@
 <body onload="init()">
     <h1>El Pollo Loco</h1>
     <div id="menu">
-        <button onclick="startGame()">Start Game</button>
-        <button onclick="showInstructions()">Instructions</button>
-        <button onclick="showCredits()">Credits</button>
+        <div class="menudiv">
+            <button onclick="startGame()">Start Game</button>
+            <button onclick="showInstructions()">Instructions</button>
+            <button onclick="showCredits()">Credits</button>
+        </div>
     </div>
     <div class="canvas-wrapper">
         <canvas id="canvas" height="600px" width="800px"></canvas>
