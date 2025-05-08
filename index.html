@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" translate="no.">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>El Pollo Loco</title>
 
+    <link rel="icon" href="./img/assets/mexicanhatfav.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 
     <script src="./js/interval.js"></script>
@@ -30,18 +30,20 @@
 
 </head>
 <body onload="init()">
+    <div id="rotate-notice">Please rotate your device to play the game in landscape mode.</div>
     <h1>El Pollo Loco</h1>
     <div id="menu">
         <div class="menudiv">
             <button onclick="startGame()">Start Game</button>
             <button onclick="showInstructions()">Instructions</button>
-            <button onclick="showCredits()">Credits</button>
+            <button onclick="showImprint()">Imprint</button>
         </div>
     </div>
     <div class="canvas-wrapper">
         <canvas id="canvas" height="600px" width="800px"></canvas>
         <button id="pauseButton" onclick="stopGame()"></button>
         <button id="playButton" onclick="resumeGame()"></button>
+        <button id="muteButton" onclick="toggleMute()" style="background-image: url('./img/assets/sound.png')"></button>
         <div id="mobileButtonsdiv">
             <button id="leftButton" class="leftButton"></button>
             <button id="rightButton" class="rightButton"></button>
@@ -54,5 +56,7 @@
         <button id="confirmButton">Yes</button>
         <button id="cancelButton">No</button>
     </div>
+    <!-- 
+     <a href="https://www.flaticon.com/free-icons/mexican-hat" title="mexican hat icons">Mexican hat icons created by Smashicons - Flaticon</a>-->
 </body>
 </html>

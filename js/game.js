@@ -1,8 +1,12 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let gameMuted = false;
 let gameStarted = false;
-let otherDirection = false; // global otherdirection, every MO has its own otherDirection
+let otherDirection = false; // global otherdirection, every MO has its own otherDirection, used as flag for the throwables
+const backgroundMusic = new Audio('./audio/backgroundmusic.mp3');
+backgroundMusic.loop = true;
+backgroundMusic.volume = 0.1;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -12,15 +16,42 @@ function startGame() {
     initLevel1();
     world = new World(canvas, Keyboard);
     document.getElementById('menu').style.display = 'none';
+    document.getElementById('muteButton').style.display = 'inline-block';
     document.getElementById('pauseButton').style.display = 'inline-block';
     canvas.style.display = 'block';
     gameStarted = true;
+    backgroundMusic.play()
+    if (window.innerWidth <= 800) {
+        document.getElementById('mobileButtonsdiv').style.visibility = 'visible';
+    }
 }
 
 function stopGame() {
     stopAllIntervals();
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'inline-block';
+    document.getElementById('mobileButtonsdiv').style.visibility = 'hidden';
+}
+
+function toggleMute() {
+    gameMuted = !gameMuted;
+    const audioElements = document.querySelectorAll("audio");
+    audioElements.forEach(audio => {
+        audio.muted = gameMuted;
+    });
+    backgroundMusic.muted = gameMuted;
+    const muteButton = document.getElementById('muteButton');
+    //muteButton.textContent = gameMuted ? 'Unmute' : 'Mute';
+    muteButton.style.backgroundImage = gameMuted ? "url('./img/assets/mute.png')" : "url('./img/assets/sound.png')";
+}
+
+function playGameSound(path, volume = 1.0, loop = false) {
+    let sound = new Audio(path);
+    sound.volume = volume;
+    sound.muted = gameMuted;
+    sound.loop = loop;
+    sound.play();
+    return sound;
 }
 
 function resumeGame() {
@@ -28,8 +59,6 @@ function resumeGame() {
     document.getElementById('pauseButton').style.display = 'inline-block';
     document.getElementById('playButton').style.display = 'none';
 }
-
-
 
 function showInstructions() {
     div = document.getElementById('menu');
@@ -52,9 +81,8 @@ function toMainMenu() {
     div.innerHTML = mainMenuTemplate();
 }
 
-function showCredits(){
-    div = document.getElementById('menu');
-    div.innerHTML = creditsTemplate();
+function showImprint(){
+    window.location.href = 'imprint.html';
 }
 
 function showGameOver() {

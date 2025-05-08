@@ -28,6 +28,10 @@ class Chicken extends MovableObject {
                 this.playAnimation(this.Chicken_walking);
             } else if (!this.alive) {
                 this.loadImage('./img/3_enemies_chicken/chicken_normal/2_dead/dead.png');
+                if (!this.soundPlayed) {
+                    playGameSound('../audio/chickendead.mp3', 0.3)
+                    this.soundPlayed = true;
+                }
             }
         }, 1000 / 60);
     }

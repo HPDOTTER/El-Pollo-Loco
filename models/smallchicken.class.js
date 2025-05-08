@@ -34,7 +34,11 @@ class SmallChicken extends MovableObject {
                 }
             } else if (!this.alive) {
                 this.loadImage('./img/3_enemies_chicken/chicken_small/2_dead/dead.png');
+                if (!this.soundPlayed) {
+                    playGameSound('./audio/chickentoy.mp3', 0.3)
+                    this.soundPlayed = true;
+                }
             } 
-        }, 1000 / 60); 
+        }, 1000 / 30); 
     }
 }

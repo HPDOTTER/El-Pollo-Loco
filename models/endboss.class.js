@@ -62,6 +62,10 @@ class Endboss extends MovableObject {
                     this.speedY += 20;
                     this.deadAnimationTriggered = true;
                 }
+                if (!this.soundPlayed) {
+                    playGameSound('./audio/roostersound.mp3', 0.3)
+                    this.soundPlayed = true;
+                }
                 this.playAnimation(this.Endboss_dead);
                 setTimeout(() => {
                     stopAllIntervals();
@@ -69,20 +73,33 @@ class Endboss extends MovableObject {
                         window.allIntervals.forEach(intervalId => clearInterval(intervalId));
                         window.allIntervals = [];
                     }
-                    showYouWin();
+                    stopAllIntervals();
+                    if (gameStarted) {
+                        showYouWin();
+                        gameStarted = false;
+                    }
+                    backgroundMusic.pause();
                 }, 2000);
             }
             // If hurt animation is active and less than 1 second has passed, keep displaying it.
             else if(this.isHurting){
-                if(new Date().getTime() - this.hurtStartTime < 1000) {
+                if (new Date().getTime() - this.hurtStartTime < 1000) {
                     this.playAnimation(this.Endboss_hurt);
+                    if (!this.hurtSoundPlayed) {
+                        playGameSound('./audio/chickenouch.mp3', 1);
+                        this.hurtSoundPlayed = true;
+                    }
                     return;
                 } else {
                     this.isHurting = false;
+                    this.hurtSoundPlayed = false; // Reset for the next hurt animation
                 }
             } else if (world.character.x > 3100 && (this.i < 180)) {
                 this.playAnimation(this.Endboss_allert);
                 this.i++;
+                if(this.i == 1) {
+                playGameSound('./audio/roostermorning.mp3', 1);
+                }
             } else if (this.previousEndbosslife !== this.endbosslife) {
                 // Trigger hurt animation for 1 second when life changes.
                 this.isHurting = true;

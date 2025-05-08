@@ -5,9 +5,9 @@ function instructionTemplate() {
                 <button class="backtomenu" onclick="toMainMenu()">X</button>
                 <h2>Instructions</h1>
                 <p>
-                    Use the arrow keys to move the character. Use the space key to jump.
+                    Use the arrow/AD keys to move the character. Use the space/W key to jump.
                     Collect coins and avoid enemies. You can throw bottles with the down
-                    arrow key. Good luck!
+                    arrow or S key. Good luck!
                 </p>
             </div>
         </div>
@@ -41,16 +41,20 @@ function creditsTemplate() {
 
 function gameOverTemplate() {
     return `
-        <div class="gameover">
-            <button class="backtomenu" onclick="toMainMenu()">X</button>
+        <div class="menudiv">
+            <div class="gameover">
+                <button class="backtomenu" onclick="toMainMenu()">X</button>
+            </div>
         </div>
     `;
 }
 
 function youWinTemplate() {
     return `
-        <div class="wongame">
-            <button class="backtomenu" onclick="toMainMenu()">X</button>
+        <div class="menudiv">
+            <div class="wongame">
+                <button class="backtomenu" onclick="toMainMenu()">X</button>
+            </div>
         </div>
     `;
 }
