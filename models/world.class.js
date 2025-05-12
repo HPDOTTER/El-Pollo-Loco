@@ -36,31 +36,31 @@ class World {
 
     enemiesCollision() {
         return this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy) && !(enemy instanceof Endboss)) { // If the character collides with an enemy
+            if (this.character.isColliding(enemy) && !(enemy instanceof Endboss)) {
                 if (this.isCharacterAboveEnemy(enemy)) { 
                     this.characterKillEnemy(enemy);
-                } else if (enemy.alive) { // Character is hit by the enemy
+                } else if (enemy.alive) {
                     this.character.hit();
                     this.healthStatusBar.setHealthPercentage(this.character.life);
                 }
-            } else if (this.bottleColliding(enemy)) { // If the enemy is hit by a throwable object, except Endboss        && !(enemy instanceof Endboss)
+            } else if (this.bottleColliding(enemy)) {
                 playGameSound('./audio/bottlesmash.mp3', 1)
                 this.throwableObjects.some(throwable => {
-                    if (throwable.isColliding(enemy)) { // Check if the throwable object collides with the enemy
-                        throwable.bottlecontact = true; // Mark the throwable object as having hit the enemy
-                        this.character.bottleRotatingAudio.pause(); // Stop the bottle rotating sound
+                    if (throwable.isColliding(enemy)) {
+                        throwable.bottlecontact = true;
+                        this.character.bottleRotatingAudio.pause();
                         setTimeout(() => {
                             this.throwableObjects = this.throwableObjects.filter(t => t !== throwable); 
-                        }, 1000); // Remove the throwable object after a delay
+                        }, 1000);
                     }
                 });
-                if (!(enemy instanceof Endboss)) { // If the enemy is not an Endboss
+                if (!(enemy instanceof Endboss)) {
                     this.characterKillEnemy(enemy);
-                } else if (enemy instanceof Endboss) { // If the enemy is an Endboss
-                    this.level.enemies[0].endbosslife -= 20 // Reduce the Endboss's life
+                } else if (enemy instanceof Endboss) {
+                    this.level.enemies[0].endbosslife -= 20
                     this.bossStatusBar.setBossPercentage(this.level.enemies[0].endbosslife)
-                    if (this.level.enemies[0].endbosslife <= 0) { // If the Endboss's life is 0 or less
-                        this.level.enemies[0].alive = false; // Set the Endboss as dead
+                    if (this.level.enemies[0].endbosslife <= 0) {
+                        this.level.enemies[0].alive = false;
                     }
                 }
             }
@@ -74,7 +74,7 @@ class World {
     coinCollision() {
         return this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin) && !coin.collected) {
-                coin.collected = true; // Mark the coin as collected
+                coin.collected = true;
                 this.character.collectCoin();
                 this.level.coins = this.level.coins.filter(c => c !== coin);
                 playGameSound('./audio/coinrecieved.mp3', 0.1)
@@ -85,7 +85,7 @@ class World {
     bottleCollision() {
         return this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle) && !bottle.collected && this.character.bottlebar < 100) {
-                bottle.collected = true; // Mark the bottle as collected
+                bottle.collected = true;
                 this.character.collectBottle();
                 this.level.bottles = this.level.bottles.filter(b => b !== bottle);
                 playGameSound('./audio/bottlecollect.mp3', 0.1)
@@ -98,11 +98,11 @@ class World {
     }
 
     characterKillEnemy(enemy) {
-        enemy.alive = false; // Set the enemy as dead
+        enemy.alive = false;
         setTimeout(() => {
-            this.level.enemies = this.level.enemies.filter(e => e !== enemy); // Remove the enemy
+            this.level.enemies = this.level.enemies.filter(e => e !== enemy);
         }
-        , 2000); // Delay for the death animation
+        , 2000);
     }
 
     draw() {
@@ -117,8 +117,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
-        requestAnimationFrame(() => this.draw()); // built-in JS Function, calling itself recursively and
-        //ensures smooth animation and matching the refresh rate of the display
+        requestAnimationFrame(() => this.draw()); // built-in JS Function, calling itself recursively and, ensures smooth animation and matching the refresh rate of the display
     }
 
     addEnvironment() {

@@ -67,6 +67,20 @@ class Character extends MovableObject {
     world;
 
 
+    /**
+     * Represents the character in the game and initializes its properties and behaviors.
+     * Extends a base class to inherit common functionality and loads various animations
+     * and images for different character states.
+     *
+     * @constructor
+     * @extends {MovableObject}
+     * @description
+     * - Loads the initial images for the character.
+     * - Loads images for walking, jumping, idle, hurt, dead, and sleeping states.
+     * - Applies gravity to the character.
+     * - Starts the character's animation loop.
+     * - Sets the initial animation to the idle state.
+     */
     constructor() {
         super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.Images_walking);
@@ -91,10 +105,6 @@ class Character extends MovableObject {
                 this.playAnimation(this.Images_dead);
                 setTimeout(() => {
                     stopAllIntervals();
-                    if (window.allIntervals) {
-                        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
-                        window.allIntervals = [];
-                    }
                     backgroundMusic.pause()
                     if (gameStarted) {
                         showGameOver();
@@ -105,7 +115,7 @@ class Character extends MovableObject {
                 this.jump(); // jump animation
                 this.i = 0;
                 playGameSound('./audio/jumping.mp3', 1);
-            } else if (this.isAboveGround()) { // jump animation
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.Images_jumping);
             } else if (this.isHurt() && !this.isDead()) {
                 this.playAnimation(this.Images_hurt);
@@ -114,15 +124,15 @@ class Character extends MovableObject {
                     playGameSound('./audio/ouchtwo.mp3', 1);
                     this.lastHurtSoundTime = now;
                 }
-            } else if (this.speedY < 0) { // jump animation
+            } else if (this.speedY < 0) {
                 this.i++;
                 if (this.i > 300){
-                    this.playAnimation(this.Images_sleeping); // sleeping animation 
+                    this.playAnimation(this.Images_sleeping);
                     if (!this.snoringSound) {
                         this.snoringSound = playGameSound('./audio/snoring.mp3', 0.1, true);
                     }
                 } else {
-                    this.playAnimation(this.Images_idle) // idle animation
+                    this.playAnimation(this.Images_idle)
                     if (this.snoringSound) {
                         this.snoringSound.pause();
                         this.snoringSound.currentTime = 0;
@@ -133,7 +143,7 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 150;
         }, 1000 / 30);
 
-        setStoppableInterval(() => { // throw bottle
+        setStoppableInterval(() => {
             if (this.world.Keyboard.DOWN && this.world.character.bottlebar !== 0) {
                 if (!this.lastThrow || new Date().getTime() - this.lastThrow > 200) {
                     this.world.throwableObjects.push(new ThrowableObject(this.x, this.y));
@@ -158,7 +168,6 @@ class Character extends MovableObject {
                     this.lastFootstepSoundTime = now;
                 }
             } else {
-                // Reset so that the sound will play the next time we start running
                 this.lastFootstepSoundTime = null;
             }
             if (this.world.Keyboard.RIGHT && this.x < this.world.level.level_end_x && this.alive) {

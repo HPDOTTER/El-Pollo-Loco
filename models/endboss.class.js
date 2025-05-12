@@ -7,7 +7,7 @@ class Endboss extends MovableObject {
     endbosslife = 100;
     i = 0;
     deadAnimationTriggered = false;
-    previousEndbosslife = 100; // Initialize previousEndbosslife
+    previousEndbosslife = 100;
     isHurting = false;
     hurtStartTime = 0;
 
@@ -80,9 +80,7 @@ class Endboss extends MovableObject {
                     }
                     backgroundMusic.pause();
                 }, 2000);
-            }
-            // If hurt animation is active and less than 1 second has passed, keep displaying it.
-            else if(this.isHurting){
+            } else if(this.isHurting){
                 if (new Date().getTime() - this.hurtStartTime < 1000) {
                     this.playAnimation(this.Endboss_hurt);
                     if (!this.hurtSoundPlayed) {
@@ -92,16 +90,15 @@ class Endboss extends MovableObject {
                     return;
                 } else {
                     this.isHurting = false;
-                    this.hurtSoundPlayed = false; // Reset for the next hurt animation
+                    this.hurtSoundPlayed = false;
                 }
             } else if (world.character.x > 3100 && (this.i < 180)) {
                 this.playAnimation(this.Endboss_allert);
                 this.i++;
                 if(this.i == 1) {
-                playGameSound('./audio/roostermorning.mp3', 1);
+                    playGameSound('./audio/roostermorning.mp3', 1);
                 }
             } else if (this.previousEndbosslife !== this.endbosslife) {
-                // Trigger hurt animation for 1 second when life changes.
                 this.isHurting = true;
                 this.hurtStartTime = new Date().getTime();
                 this.playAnimation(this.Endboss_hurt);

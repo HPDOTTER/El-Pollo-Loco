@@ -19,11 +19,11 @@ class MovableObject extends DrawableObject {
 
 
     isAboveGround(){
-        if(this instanceof ThrowableObject){ // throwable objects are not affected by gravity
+        if(this instanceof ThrowableObject){
             return true;
-        } else if (this.life == 0) { // dead character flying off the screen
+        } else if (this.life == 0) {
             return true;
-        } else if (world.level.enemies[0].endbosslife <= 0 && this instanceof Endboss) {// dead endboss flying off the screen
+        } else if (world.level.enemies[0].endbosslife <= 0 && this instanceof Endboss) {
             return true;
         } else {
             return (this.y + this.height) < 510;
@@ -70,7 +70,7 @@ class MovableObject extends DrawableObject {
         if (this.coinbar > 100) {
             this.coinbar = 100;
         }
-        this.world.coinStatusBar.setCoinPercentage(this.coinbar); // Update coin bar
+        this.world.coinStatusBar.setCoinPercentage(this.coinbar);
     }
 
     collectBottle(){
@@ -78,7 +78,7 @@ class MovableObject extends DrawableObject {
         if(this.bottlebar > 100){
             this.bottlebar = 100;
         }
-        this.world.bottleStatusBar.setBottlePercentage(this.bottlebar); // Update bottle bar
+        this.world.bottleStatusBar.setBottlePercentage(this.bottlebar);
     }
 
     isHurt(){

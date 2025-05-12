@@ -29,7 +29,7 @@ class SmallChicken extends MovableObject {
                 this.moveLeft();
                 this.playAnimation(this.Small_chicken_walking);
                 if (new Date().getTime() - this.lastjump > 18000 * Math.random()) {
-                    this.jump(); // jump animation
+                    this.jump();
                     this.lastjump = new Date().getTime();
                 }
             } else if (!this.alive) {

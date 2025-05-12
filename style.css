@@ -19,7 +19,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-image: url('./img/desert.png');
+    background-image: url('./img/assets/desert.png');
     font-family: 'Zabars', sans-serif;
 }
 
@@ -67,7 +67,7 @@ button {
     width: 30px;
     height: 30px;
     display: none;
-    background-image: url(./img/pause.png);
+    background-image: url(./img/assets/pause.png);
     background-size: cover;
     background-position: center;
     border: none;
@@ -82,7 +82,7 @@ button {
     position: absolute;
     width: 30px;
     height: 30px;
-    background-image: url(./img/play-buttton.png);
+    background-image: url(./img/assets/play-buttton.png);
     background-size: cover;
     background-position: center;
     border: none;
@@ -94,6 +94,7 @@ button {
 
 #muteButton {
     position: absolute;
+    background-image: url(./img/assets/sound.png);
     top: 25px;
     right: 60px;
     width: 30px;

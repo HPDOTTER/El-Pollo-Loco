@@ -41,7 +41,6 @@ function toggleMute() {
     });
     backgroundMusic.muted = gameMuted;
     const muteButton = document.getElementById('muteButton');
-    //muteButton.textContent = gameMuted ? 'Unmute' : 'Mute';
     muteButton.style.backgroundImage = gameMuted ? "url('./img/assets/mute.png')" : "url('./img/assets/sound.png')";
 }
 
@@ -155,7 +154,7 @@ window.addEventListener("keyup", (e) => {
 
 window.addEventListener("keydown", (e) => {
     if (e.code == 'Escape' && gameStarted) {
-        stopAllIntervals(); // Stop all intervals
+        stopAllIntervals();
         const popup = document.getElementById('popup');
         popup.style.display = 'block';
         document.getElementById('confirmButton').addEventListener('click', () => {
