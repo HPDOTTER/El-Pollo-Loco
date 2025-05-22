@@ -1,17 +1,33 @@
+/**
+ * @fileoverview Contains the main game functions including audio, UI updates, and event listeners.
+ */
+
 let canvas;
 let world;
 let keyboard = new Keyboard();
 let gameMuted = false;
 let gameStarted = false;
-let otherDirection = false; // global otherdirection, every MO has its own otherDirection, used as flag for the throwables
+let otherDirection = false; // used as flag for the throwables
+
+/**
+ * Background music for the game.
+ * @type {Audio}
+ */
 const backgroundMusic = new Audio('./audio/backgroundmusic.mp3');
 backgroundMusic.loop = true;
-backgroundMusic.volume = 0.1;
+backgroundMusic.volume = 0.05;
 
+/**
+ * Initializes the game by retrieving the canvas element.
+ */
 function init() {
     canvas = document.getElementById('canvas');
 }
 
+/**
+ * Starts the game by initializing level 1, creating the world, updating UI elements,
+ * and playing the background music.
+ */
 function startGame() {
     initLevel1();
     world = new World(canvas, Keyboard);
@@ -20,12 +36,15 @@ function startGame() {
     document.getElementById('pauseButton').style.display = 'inline-block';
     canvas.style.display = 'block';
     gameStarted = true;
-    backgroundMusic.play()
+    backgroundMusic.play();
     if (window.innerWidth <= 800) {
         document.getElementById('mobileButtonsdiv').style.visibility = 'visible';
     }
 }
 
+/**
+ * Stops the game, stops all intervals, and updates the UI accordingly.
+ */
 function stopGame() {
     stopAllIntervals();
     document.getElementById('pauseButton').style.display = 'none';
@@ -33,6 +52,10 @@ function stopGame() {
     document.getElementById('mobileButtonsdiv').style.visibility = 'hidden';
 }
 
+/**
+ * Toggles the mute state for all audio elements including the background music.
+ * Also updates the mute button's background image.
+ */
 function toggleMute() {
     gameMuted = !gameMuted;
     const audioElements = document.querySelectorAll("audio");
@@ -44,6 +67,13 @@ function toggleMute() {
     muteButton.style.backgroundImage = gameMuted ? "url('./img/assets/mute.png')" : "url('./img/assets/sound.png')";
 }
 
+/**
+ * Plays a game sound.
+ * @param {string} path - The file path to the audio file.
+ * @param {number} [volume=1.0] - The volume for the sound (range 0.0-1.0).
+ * @param {boolean} [loop=false] - Whether the sound should loop.
+ * @returns {Audio} The audio object that was played.
+ */
 function playGameSound(path, volume = 1.0, loop = false) {
     let sound = new Audio(path);
     sound.volume = volume;
@@ -53,107 +83,120 @@ function playGameSound(path, volume = 1.0, loop = false) {
     return sound;
 }
 
+/**
+ * Resumes the game by restarting all intervals and updating button displays.
+ */
 function resumeGame() {
     resumeAllIntervals();
     document.getElementById('pauseButton').style.display = 'inline-block';
     document.getElementById('playButton').style.display = 'none';
 }
 
+/**
+ * Replaces the menu content with the instructions overlay.
+ */
 function showInstructions() {
-    div = document.getElementById('menu');
+    const div = document.getElementById('menu');
     div.innerHTML = instructionTemplate();
 }
 
+/**
+ * Returns to the main menu by stopping all intervals, clearing game data, updating UI,
+ * and reloading the main menu template.
+ */
 function toMainMenu() {
     stopAllIntervals();
     world = null;
-    document.getElementById('menu').style.display = 'flex';
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('pauseButton').style.display = 'none';
-    document.getElementById('playButton').style.display = 'none';
+    hideAllPopupsAndButtons();
     canvas.style.display = 'none';
-    if (window.allIntervals) {
-        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
-        window.allIntervals = [];
-    }
-    div = document.getElementById('menu');
+    const div = document.getElementById('menu');
     div.innerHTML = mainMenuTemplate();
 }
 
-function showImprint(){
-    window.location.href = 'imprint.html';
+/**
+ * Redirects to the imprint page.
+ */
+function showImprint() {
+    window.location.href = './imprint.html';
 }
 
+/**
+ * Displays the game over screen by stopping the game, clearing intervals,
+ * and updating the UI with the game over template.
+ */
 function showGameOver() {
     stopAllIntervals();
     world = null;
-    document.getElementById('menu').style.display = 'flex';
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('pauseButton').style.display = 'none';
-    document.getElementById('playButton').style.display = 'none';
+    hideAllPopupsAndButtons();
     canvas.style.display = 'none';
-    if (window.allIntervals) {
-        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
-        window.allIntervals = [];
-    }
-    div = document.getElementById('menu');
+    const div = document.getElementById('menu');
     div.innerHTML = gameOverTemplate();
 }
 
+/**
+ * Displays the win screen by stopping the game, clearing intervals,
+ * and updating the UI with the win game template.
+ */
 function showYouWin() {
     stopAllIntervals();
     world = null;
+    hideAllPopupsAndButtons();
+    canvas.style.display = 'none';
+    const div = document.getElementById('menu');
+    div.innerHTML = youWinTemplate();
+}
+
+/**
+ * Hides all popup elements and control buttons, and resets the menu display.
+ */
+function hideAllPopupsAndButtons() {
     document.getElementById('menu').style.display = 'flex';
     document.getElementById('popup').style.display = 'none';
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'none';
-    canvas.style.display = 'none';
-    if (window.allIntervals) {
-        window.allIntervals.forEach(intervalId => clearInterval(intervalId));
-        window.allIntervals = [];
-    }
-    div = document.getElementById('menu');
-    div.innerHTML = youWinTemplate();
+    document.getElementById('muteButton').style.display = 'none';
+    document.getElementById('mobileButtonsdiv').style.visibility = 'hidden';
 }
 
+// ------------------------------------------------------------------------------
+// Event listeners
+// ------------------------------------------------------------------------------
+
 window.addEventListener("keydown", (e) => {
-    if (e.code == 'ArrowRight' || e.code == 'KeyD') {
+    if (e.code === 'ArrowRight' || e.code === 'KeyD') {
         Keyboard.RIGHT = true;
-        }
-    if (e.code == 'ArrowLeft' || e.code == 'KeyA') {
+    }
+    if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
         Keyboard.LEFT = true;
-        }
-    if (e.code == 'Space') {
-        Keyboard.SPACE = true;
-        }
-    if (e.code == 'ArrowUp' || e.code == 'KeyW') {
+    }
+    if (e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Space') {
         Keyboard.UP = true;
-        }
-    if (e.code == 'ArrowDown' || e.code == 'KeyS') {
-            Keyboard.DOWN = true;
-        }    
+    }
+    if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+        Keyboard.DOWN = true;
+    }    
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.code == 'ArrowRight' || e.code == 'KeyD') {
+    if (e.code === 'ArrowRight' || e.code === 'KeyD') {
         Keyboard.RIGHT = false;
-        }
-    if (e.code == 'ArrowLeft' || e.code == 'KeyA') {
+    }
+    if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
         Keyboard.LEFT = false;
-        }
-    if (e.code == 'Space') {
-        Keyboard.SPACE = false;
-        }
-    if (e.code == 'ArrowUp' || e.code == 'KeyW') {
+    }
+    if (e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Space') {
         Keyboard.UP = false;
-        }
-    if (e.code == 'ArrowDown' || e.code == 'KeyS') {
-            Keyboard.DOWN = false;
-        }
+    }
+    if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+        Keyboard.DOWN = false;
+    }
 });
 
+/**
+ * Listens for the Escape key to trigger the pause menu.
+ */
 window.addEventListener("keydown", (e) => {
-    if (e.code == 'Escape' && gameStarted) {
+    if (e.code === 'Escape' && gameStarted) {
         stopAllIntervals();
         const popup = document.getElementById('popup');
         popup.style.display = 'block';
@@ -169,6 +212,9 @@ window.addEventListener("keydown", (e) => {
     }
 });
 
+/**
+ * Handles touch start events to set keyboard flags based on pressed buttons.
+ */
 window.addEventListener("touchstart", (e) => {
     if (e.target.id === 'leftButton') {
         Keyboard.LEFT = true;
@@ -184,6 +230,9 @@ window.addEventListener("touchstart", (e) => {
     }
 });
 
+/**
+ * Handles touch end events to reset keyboard flags when buttons are released.
+ */
 window.addEventListener("touchend", (e) => {
     if (e.target.id === 'leftButton') {
         Keyboard.LEFT = false;

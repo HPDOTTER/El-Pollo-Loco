@@ -1,3 +1,7 @@
+/**
+ * Returns the HTML template for the instructions overlay.
+ * @returns {string} HTML string representing the instructions overlay.
+ */
 function instructionTemplate() {
     return `
         <div class="menudiv">
@@ -14,16 +18,24 @@ function instructionTemplate() {
     `;
 }
 
+/**
+ * Returns the HTML template for the main menu.
+ * @returns {string} HTML string representing the main menu.
+ */
 function mainMenuTemplate() {
     return `
         <div class="menudiv">
             <button onclick="startGame()">Start Game</button>
             <button onclick="showInstructions()">Instructions</button>
-            <button onclick="showCredits()">Credits</button>
+            <button onclick="showImprint()">Imprint</button>
         </div>
     `;
 }
 
+/**
+ * Returns the HTML template for the credits overlay.
+ * @returns {string} HTML string representing the credits overlay.
+ */
 function creditsTemplate() {
     return `
         <div class="menudiv">
@@ -39,6 +51,10 @@ function creditsTemplate() {
     `;
 }
 
+/**
+ * Returns the HTML template for the game over screen.
+ * @returns {string} HTML string representing the game over screen.
+ */
 function gameOverTemplate() {
     return `
         <div class="menudiv">
@@ -49,6 +65,10 @@ function gameOverTemplate() {
     `;
 }
 
+/**
+ * Returns the HTML template for the winning screen.
+ * @returns {string} HTML string representing the winning screen.
+ */
 function youWinTemplate() {
     return `
         <div class="menudiv">
