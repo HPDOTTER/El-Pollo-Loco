@@ -62,7 +62,7 @@ class Chicken extends MovableObject {
                 // Chicken is dead, show dead image and play death sound if not already played.
                 this.loadImage('./img/3_enemies_chicken/chicken_normal/2_dead/dead.png');
                 if (!this.soundPlayed) {
-                    playGameSound('../audio/chickendead.mp3', 0.3);
+                    playGameSound('./audio/chickendead.mp3', 0.3);
                     this.soundPlayed = true;
                 }
             }
