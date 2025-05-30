@@ -5,31 +5,30 @@
  *
  * @class
  * @extends MovableObject
- *
- * @property {number} height - The height of the character.
- * @property {number} y - The vertical position of the character.
- * @property {number} speed - The movement speed of the character.
- * @property {boolean} alive - Indicates if the character is alive.
- * @property {boolean} deadAnimationTriggered - Tracks if the death animation has been triggered.
- * @property {number} i - Animation frame counter for idle/sleeping.
- * @property {Audio} bottleRotatingAudio - Audio object for bottle rotation sound.
- * @property {number} xOffset - Horizontal offset for the character's hitbox.
- * @property {number} yOffset - Vertical offset for the character's hitbox.
- * @property {number} widthOffset - Width offset for the character's hitbox.
- * @property {number} heightOffset - Height offset for the character's hitbox.
- * @property {string[]} Images_walking - Array of image paths for walking animation.
- * @property {string[]} Images_jumping - Array of image paths for jumping animation.
- * @property {string[]} Images_hurt - Array of image paths for hurt animation.
- * @property {string[]} Images_dead - Array of image paths for dead animation.
- * @property {string[]} Images_idle - Array of image paths for idle animation.
- * @property {string[]} Images_sleeping - Array of image paths for sleeping animation.
- * @property {Object} world - Reference to the game world and its state.
- *
- * @constructor
- * @description
  * Initializes the character, loads all animation images, applies gravity, and starts animation loops.
  */
+
 class Character extends MovableObject {
+    /**    
+     * * @property {number} height - The height of the character.
+     * @property {number} y - The vertical position of the character.
+     * @property {number} speed - The movement speed of the character.
+     * @property {boolean} alive - Indicates if the character is alive.
+     * @property {boolean} deadAnimationTriggered - Indicates if the death animation has been triggered.
+     * @property {number} i - Internal counter for idle/sleeping animation.
+     * @property {Audio} bottleRotatingAudio - Audio object for the bottle rotating sound.
+     * @property {number} xOffset - Horizontal offset for collision detection.
+     * @property {number} yOffset - Vertical offset for collision detection.
+     * @property {number} widthOffset - Width offset for collision detection.
+     * @property {number} heightOffset - Height offset for collision detection.
+     * @property {string[]} Images_walking - Array of image paths for walking animation.
+     * @property {string[]} Images_jumping - Array of image paths for jumping animation.
+     * @property {string[]} Images_hurt - Array of image paths for hurt animation.
+     * @property {string[]} Images_dead - Array of image paths for dead animation.
+     * @property {string[]} Images_idle - Array of image paths for idle animation.
+     * @property {string[]} Images_sleeping - Array of image paths for sleeping animation.
+     * @property {Object} world - Reference to the game world instance.
+    */
     height = 230;
     y = 180; 
     speed = 5;
@@ -131,46 +130,69 @@ class Character extends MovableObject {
     }
 
     /**
-     * Sets up the animation loops for the character.
-     * Handles user input for jumping, walking, and throwing bottles.
-     * Manages character states such as idle, hurt, and dead.
-     * Updates the camera position based on the character's position.
-     */
+     * Starts the character's animation loop.
+     * Sets up two intervals:
+     * 1. A 60 FPS interval to handle character state changes and camera position.
+     * 2. A 60 FPS interval to handle bottle throwing, walking, and movement.
+     * */
     animate() {
         setStoppableInterval(() => {
-            if (this.isDead()) {
-                this.deathAnimation();
-            } else if (this.world.Keyboard.SPACE || this.world.Keyboard.UP && !this.isAboveGround() && this.alive) {
-                this.jump();
-                this.i = 0;
-                playGameSound('./audio/jumping.mp3', 1);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.Images_jumping);
-            } else if (this.isHurt() && !this.isDead()) {
-                this.hurtAnimation();
-            } else if (this.speedY < 0) {
-                this.idleAndDeepIdleAnimation();
-            }
+            this.handleCharacterState();
             this.world.camera_x = -this.x + 150;
         }, 1000 / 60);
-        
+
         setStoppableInterval(() => {
-            if (this.world.Keyboard.DOWN && this.world.character.bottlebar !== 0) {
-                this.throwBottle();
-                this.playBottleRotatingAudio();
-            }
-            if ((this.world.Keyboard.RIGHT || this.world.Keyboard.LEFT) && !this.isAboveGround() && this.speed > 0 && this.alive) {
-                this.walkingAnimation();
-            } else {
-                this.lastFootstepSoundTime = null;
-            }
-            if (this.world.Keyboard.RIGHT && this.x < this.world.level.level_end_x && this.alive) {
-                this.moveCharacterRight();
-            }
-            if (this.world.Keyboard.LEFT && this.x > 0 && this.alive) {
-                this.moveCharacterLeft();
-            }
+            this.handleBottleThrow();
+            this.handleWalking();
+            this.handleMovement();
         }, 1000 / 60);
+    }
+
+    /**
+     * Handles the character's state based on various conditions.
+    */
+    handleCharacterState() {
+        if (this.isDead()) return this.deathAnimation();
+        if ((this.world.Keyboard.SPACE || this.world.Keyboard.UP) && !this.isAboveGround() && this.alive) {
+            this.jump();
+            this.i = 0;
+            playGameSound('./audio/jumping.mp3', 1);
+        } else if (this.isAboveGround()) this.playAnimation(this.Images_jumping);
+        else if (this.isHurt() && !this.isDead()) this.hurtAnimation();
+        else if (this.speedY < 0) this.idleAndDeepIdleAnimation();
+    }
+
+    /**
+     * Handles the bottle throwing action.
+    */
+    handleBottleThrow() {
+        if (this.world.Keyboard.DOWN && this.world.character.bottlebar !== 0) {
+            this.throwBottle();
+            this.playBottleRotatingAudio();
+        }
+    }
+
+    /**
+     * Handles the walking animation and sound effects.
+    */
+    handleWalking() {
+        if ((this.world.Keyboard.RIGHT || this.world.Keyboard.LEFT) && !this.isAboveGround() && this.speed > 0 && this.alive) {
+            this.walkingAnimation();
+        } else {
+            this.lastFootstepSoundTime = null;
+        }
+    }
+
+    /**
+     * Handles character movement based on keyboard input.
+     */
+    handleMovement() {
+        if (this.world.Keyboard.RIGHT && this.x < this.world.level.level_end_x && this.alive) {
+            this.moveCharacterRight();
+        }
+        if (this.world.Keyboard.LEFT && this.x > 0 && this.alive) {
+            this.moveCharacterLeft();
+        }
     }
 
     /**
@@ -218,14 +240,17 @@ class Character extends MovableObject {
      * shows the game over screen and sets the game state to not started.
      */
     showGameOverWithDelay() {
-        setTimeout(() => {
-            stopAllIntervals();
-            backgroundMusic.pause();
-            if (gameStarted) {
-                showGameOver();
-                gameStarted = false;
-            }
-        }, 2000);
+        if (!this.gameovershown) {
+            setTimeout(() => {
+                stopAllIntervals();
+                backgroundMusic.pause();
+                if (gameStarted) {
+                    showGameOver();
+                    gameStarted = false;
+                    this.gameovershown = true;
+                }
+            }, 2000);
+        }
     }
 
     /**
@@ -250,7 +275,7 @@ class Character extends MovableObject {
      */
     idleAndDeepIdleAnimation() {
         this.i++;
-        if (this.i > 300) {
+        if (this.i > 450) {
             this.playAnimation(this.Images_sleeping);
             if (!this.snoringSound && !gameMuted) {
                 this.snoringSound = playGameSound('./audio/snoring.mp3', 0.1, true);
@@ -272,7 +297,7 @@ class Character extends MovableObject {
      * reduces the character's bottle bar, and updates the bottle status bar.
      */
     throwBottle() {
-        if (!this.lastThrow || new Date().getTime() - this.lastThrow > 200) {
+        if (!this.lastThrow || new Date().getTime() - this.lastThrow > 400) {
             this.world.throwableObjects.push(new ThrowableObject(this.x, this.y));
             this.lastThrow = new Date().getTime();
             this.world.character.bottlebar -= 20;

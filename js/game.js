@@ -5,9 +5,13 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let gameMuted = false;
+let gameMuted = sessionStorage.getItem("gameMuted") ? JSON.parse(sessionStorage.getItem("gameMuted")) : false;
 let gameStarted = false;
-let otherDirection = false; // used as flag for the throwables
+let otherDirection = false;
+
+if (sessionStorage.getItem("gameMuted") === null) {
+    sessionStorage.setItem("gameMuted", JSON.stringify(false));
+}
 
 /**
  * Background music for the game.
@@ -16,6 +20,12 @@ let otherDirection = false; // used as flag for the throwables
 const backgroundMusic = new Audio('./audio/backgroundmusic.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.05;
+
+const audioElements = document.querySelectorAll("audio");
+audioElements.forEach(audio => {
+    audio.muted = gameMuted;
+});
+backgroundMusic.muted = gameMuted;
 
 /**
  * Initializes the game by retrieving the canvas element.
@@ -37,9 +47,10 @@ function startGame() {
     canvas.style.display = 'block';
     gameStarted = true;
     backgroundMusic.play();
-    if (window.innerWidth <= 800) {
+    if (window.innerWidth <= 940) {
         document.getElementById('mobileButtonsdiv').style.visibility = 'visible';
     }
+    updateMuteButtonState();
 }
 
 /**
@@ -54,10 +65,11 @@ function stopGame() {
 
 /**
  * Toggles the mute state for all audio elements including the background music.
- * Also updates the mute button's background image.
+ * Updates the state in session storage and changes the mute button's background image accordingly.
  */
 function toggleMute() {
     gameMuted = !gameMuted;
+    sessionStorage.setItem("gameMuted", JSON.stringify(gameMuted));
     const audioElements = document.querySelectorAll("audio");
     audioElements.forEach(audio => {
         audio.muted = gameMuted;
@@ -65,6 +77,27 @@ function toggleMute() {
     backgroundMusic.muted = gameMuted;
     const muteButton = document.getElementById('muteButton');
     muteButton.style.backgroundImage = gameMuted ? "url('./img/assets/mute.png')" : "url('./img/assets/sound.png')";
+    if (gameMuted && world.character.snoringSound) {
+        world.character.snoringSound.pause();
+        world.character.snoringSound.currentTime = 0;
+        world.character.snoringSound = null;
+    }
+}
+
+/**
+ * Updates the mute button's background image based on the current mute state
+ * stored in session storage. If gameMuted is true, the button shows the mute image;
+ * otherwise, it shows the sound image.
+ */
+function updateMuteButtonState() {
+    const currentMuteState = JSON.parse(sessionStorage.getItem("gameMuted"));
+    const muteButton = document.getElementById('muteButton');
+
+    if (muteButton) {
+        muteButton.style.backgroundImage = currentMuteState 
+            ? "url('./img/assets/mute.png')" 
+            : "url('./img/assets/sound.png')";
+    }
 }
 
 /**
@@ -158,10 +191,18 @@ function hideAllPopupsAndButtons() {
     document.getElementById('mobileButtonsdiv').style.visibility = 'hidden';
 }
 
-// ------------------------------------------------------------------------------
-// Event listeners
-// ------------------------------------------------------------------------------
-
+/**
+ * Handles keyboard events to set flags for character movement.
+ * The flags are set based on arrow keys and WASD keys.
+ * The UP key is also set for jumping, and DOWN for throwing.
+ * The SPACE key is used for jumping as well.
+ * @typedef {Object} Keyboard
+ * @property {boolean} RIGHT - Flag for moving right.
+ * @property {boolean} LEFT - Flag for moving left.
+ * @property {boolean} UP - Flag for jumping.
+ * @property {boolean} DOWN - Flag for throwing.
+ * @property {boolean} SPACE - Flag for jumping.
+*/
 window.addEventListener("keydown", (e) => {
     if (e.code === 'ArrowRight' || e.code === 'KeyD') {
         Keyboard.RIGHT = true;
@@ -247,4 +288,3 @@ window.addEventListener("touchend", (e) => {
         Keyboard.DOWN = false;
     }
 });
-

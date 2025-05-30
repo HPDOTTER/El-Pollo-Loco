@@ -25,7 +25,7 @@ class Endboss extends MovableObject {
      */
     height = 350;
     width = 300;
-    speed = 0.8;
+    speed = 1.5;
     y = 185;
     alive = true;
     endbosslife = 100;
@@ -140,9 +140,9 @@ class Endboss extends MovableObject {
                 this.endbossAproachAnimation();
             } else if (this.previousEndbosslife !== this.endbosslife) {
                 this.endbossHurtDelay();
-            } else if ((world.character.x - this.x) > -100 && this.i > 179 && world.character.alive) {
+            } else if ((world.character.x - this.x) > -55 && this.i > 179 && world.character.alive) {
                 this.playAnimation(this.Endboss_attack);
-            } else if (world.character.x > 3200 && this.i > 179) {
+            } else if (this.endbossApproachstarted) {
                 this.playAnimation(this.Endboss_Walk);
                 this.moveLeft();
             } 
@@ -239,6 +239,7 @@ class Endboss extends MovableObject {
     endbossAproachAnimation(){
         this.playAnimation(this.Endboss_allert);
         this.i++;
+        this.endbossApproachstarted = true;
         if(this.i == 1) {
             playGameSound('./audio/endbossaproach.mp3', 0.7);
         }

@@ -51,14 +51,12 @@ class DrawableObject {
     drawFrame(ctx) {
         if (this instanceof Chicken || this instanceof Endboss || this instanceof Coin ||
             this instanceof Bottle || this instanceof ThrowableObject || this instanceof SmallChicken) {
-            // Enemy hitbox
             ctx.beginPath();
             ctx.strokeStyle = 'green';
             ctx.lineWidth = 1;
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         } else if (this instanceof Character) {
-            // Character hitbox
             ctx.beginPath();
             ctx.strokeStyle = 'green';
             ctx.lineWidth = 1;
@@ -77,7 +75,7 @@ class DrawableObject {
      */
     drawOffsetFrame(ctx) {
         ctx.beginPath();
-        ctx.strokeStyle = 'red'; // Distinguish the offset hitbox with a different color
+        ctx.strokeStyle = 'red';
         ctx.lineWidth = 1;
         const offsetX = this.x + (typeof this.xOffset === 'number' ? this.xOffset : 0);
         const offsetY = this.y + (typeof this.yOffset === 'number' ? this.yOffset : 0);

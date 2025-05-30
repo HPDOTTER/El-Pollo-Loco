@@ -60,6 +60,7 @@ function gameOverTemplate() {
         <div class="menudiv">
             <div class="gameover">
                 <button class="backtomenu" onclick="toMainMenu()">X</button>
+                <button class="tryAgain" onclick="startGame()">Try Again</button>
             </div>
         </div>
     `;
@@ -74,6 +75,7 @@ function youWinTemplate() {
         <div class="menudiv">
             <div class="wongame">
                 <button class="backtomenu" onclick="toMainMenu()">X</button>
+                <button class="tryAgain" onclick="startGame()">Try Again</button>
             </div>
         </div>
     `;

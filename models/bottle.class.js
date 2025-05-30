@@ -13,9 +13,9 @@ class Bottle extends MovableObject {
      * @type {number} widthOffset
      * @type {number} heightOffset
      */
-    xOffset = 10;
+    xOffset = 17;
     yOffset = 10;
-    widthOffset = 10;
+    widthOffset = 30;
     heightOffset = 10;
 
     /**
@@ -34,15 +34,10 @@ class Bottle extends MovableObject {
      * and initializes the position and size of the bottle.
      */
     constructor() {
-        // Load a random image for the bottle.
         super().loadImage(this.IMAGES_BOTTLE[Math.floor(Math.random() * this.IMAGES_BOTTLE.length)]);
-        // Preload all bottle images.
         this.loadImages(this.IMAGES_BOTTLE);
-        // Set a random x position between 200 and level_end_x - 200.
         this.x = 200 + (Math.random() * (level_end_x - 400));
-        // Set the vertical position.
         this.y = 460;
-        // Define the bottle's dimensions.
         this.height = 60;
         this.width = 60;
     }

@@ -265,7 +265,6 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addEnvironment();
         this.ctx.translate(-this.camera_x, 0);
-        // Draw fixed objects such as status bars
         this.addStatusBars();
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.enemies);
