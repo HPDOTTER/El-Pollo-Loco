@@ -35,29 +35,41 @@
     font-size: 30px;
 }
 
-/* smartphone */
 @media only screen and (max-width: 800px) {
     canvas {
         width: 100%;
+        user-select: none;
     }
-    h1 {
+    .mainHeader {
         display: none;
     }
     #mobileButtonsdiv {
         display: flex;
+    }
+    .instructions {
+        display: none;
+    }
+    p {
+        font-size: 1.2em !important; 
     }
 }
 
-/* smartphone */
 @media only screen and (max-height: 600px) {
     canvas {
         height: 100vh;
+        user-select: none;
     }
-    h1 {
+    .mainHeader {
         display: none;
     }
     #mobileButtonsdiv {
         display: flex;
+    }
+    .instructions {
+        display: none;
+    }
+    p {
+        font-size: 1.2em !important; 
     }
 }
 

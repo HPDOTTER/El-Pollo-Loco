@@ -61,6 +61,9 @@ class SmallChicken extends MovableObject {
      */
     animate() {
         setStoppableInterval(() => {
+            if (!this.isAboveGround() && this.y > 455 && new Date().getTime() - this.lastjump > 550 && this.alive) {
+                this.y = 457;
+            }
             if(this.alive && !this.isAboveGround()) {
                 this.moveLeft();
                 this.playAnimation(this.Small_chicken_walking);
@@ -75,6 +78,6 @@ class SmallChicken extends MovableObject {
                     this.soundPlayed = true;
                 }
             } 
-        }, 1000 / 30); 
+        }, 1000 / 60); 
     }
 }

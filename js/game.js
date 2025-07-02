@@ -60,7 +60,15 @@ function stopGame() {
     stopAllIntervals();
     document.getElementById('pauseButton').style.display = 'none';
     document.getElementById('playButton').style.display = 'inline-block';
-    document.getElementById('mobileButtonsdiv').style.visibility = 'hidden';
+}
+
+/**
+ * Resumes the game by restarting all intervals and updating button displays.
+ */
+function resumeGame() {
+    resumeAllIntervals();
+    document.getElementById('pauseButton').style.display = 'inline-block';
+    document.getElementById('playButton').style.display = 'none';
 }
 
 /**
@@ -114,15 +122,6 @@ function playGameSound(path, volume = 1.0, loop = false) {
     sound.loop = loop;
     sound.play();
     return sound;
-}
-
-/**
- * Resumes the game by restarting all intervals and updating button displays.
- */
-function resumeGame() {
-    resumeAllIntervals();
-    document.getElementById('pauseButton').style.display = 'inline-block';
-    document.getElementById('playButton').style.display = 'none';
 }
 
 /**
@@ -252,6 +251,7 @@ window.addEventListener("keydown", (e) => {
         });
     }
 });
+
 
 /**
  * Handles touch start events to set keyboard flags based on pressed buttons.

@@ -7,7 +7,6 @@
  */
 class MovableObject extends DrawableObject {
     /**
-     * The horizontal speed of the object.
      * @type {number} speed x
      * @type {number} speed y
      * @type {number} acceleration
@@ -36,7 +35,7 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) { 
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            }
+            } 
         }, 1000 / 60);
     }
 
@@ -49,7 +48,7 @@ class MovableObject extends DrawableObject {
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
-        } else if (this.life == 0) {
+        } else if (this.world && this.world.character && this.world.character.life == 0) {
             return true;
         } else if (world.level.enemies[0].endbosslife <= 0 && this instanceof Endboss) {
             return true;

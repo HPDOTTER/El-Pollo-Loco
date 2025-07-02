@@ -38,17 +38,17 @@ class Character extends MovableObject {
     bottleRotatingAudio = new Audio('./audio/rotatingbottle.mp3');
 
     xOffset = 10;
-    yOffset = 70;
+    yOffset = 95;
     widthOffset = 30;
-    heightOffset = 80;
+    heightOffset = 105;
     
     Images_walking = 
-        Array(4).fill('./img/2_character_pepe/2_walk/W-21.png')
-        .concat(Array(4).fill('./img/2_character_pepe/2_walk/W-22.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/2_walk/W-23.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/2_walk/W-24.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/2_walk/W-25.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/2_walk/W-26.png'));
+        Array(12).fill('./img/2_character_pepe/2_walk/W-21.png')
+        .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-22.png'))
+        .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-23.png'))
+        .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-24.png'))
+        .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-25.png'))
+        .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-26.png'));
 
     Images_jumping = 
         Array(4).fill('./img/2_character_pepe/3_jump/J-31.png')
@@ -153,6 +153,7 @@ class Character extends MovableObject {
     */
     handleCharacterState() {
         if (this.isDead()) return this.deathAnimation();
+        if (this.y > 280 && this.alive) this.y = 289.2;
         if ((this.world.Keyboard.SPACE || this.world.Keyboard.UP) && !this.isAboveGround() && this.alive) {
             this.jump();
             this.i = 0;
@@ -166,10 +167,11 @@ class Character extends MovableObject {
      * Handles the bottle throwing action.
     */
     handleBottleThrow() {
-        if (this.world.Keyboard.DOWN && this.world.character.bottlebar !== 0) {
+        if (this.world.Keyboard.DOWN && !this.lastDownPressed && this.world.character.bottlebar !== 0) {
             this.throwBottle();
             this.playBottleRotatingAudio();
         }
+        this.lastDownPressed = this.world.Keyboard.DOWN;
     }
 
     /**
@@ -228,10 +230,10 @@ class Character extends MovableObject {
             this.speedY += 40;
             this.deadAnimationTriggered = true;
             playGameSound('./audio/gameover.mp3', 0.7);
+            this.showGameOverWithDelay();
         }
         this.alive = false;
         this.playAnimation(this.Images_dead);
-        this.showGameOverWithDelay();
     }
 
     /**

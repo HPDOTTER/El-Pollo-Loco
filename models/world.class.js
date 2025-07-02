@@ -323,7 +323,7 @@ class World {
             this.handleObjectDirection(MO);
             // Uncomment the following to draw hitboxes:
             // MO.drawFrame(this.ctx);
-            // MO.drawOffsetFrame(this.ctx);
+            MO.drawOffsetFrame(this.ctx);
         }
     }
 

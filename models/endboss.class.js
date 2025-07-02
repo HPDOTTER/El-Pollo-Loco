@@ -144,8 +144,8 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.Endboss_attack);
             } else if (this.endbossApproachstarted) {
                 this.playAnimation(this.Endboss_Walk);
-                this.moveLeft();
-            } 
+                this.moveLeft(); 
+            }
         }, 1000 / 60);
     }
 
@@ -157,7 +157,9 @@ class Endboss extends MovableObject {
      * @method
      */
     winGame() {
-        setTimeout(() => {
+        if (!this.wonGame){
+            this.wonGame = true;
+            setTimeout(() => {
             stopAllIntervals();
             if (gameStarted) {
                 showYouWin();
@@ -165,6 +167,8 @@ class Endboss extends MovableObject {
             }
             backgroundMusic.pause();
         }, 2000);
+        }
+        
     }
 
     /**
@@ -216,7 +220,7 @@ class Endboss extends MovableObject {
      * @method
      */
     endbossHurtAnimation(){
-        if (new Date().getTime() - this.hurtStartTime < 1000) {
+        if (new Date().getTime() - this.hurtStartTime < 500) {
             this.playAnimation(this.Endboss_hurt);
             if (!this.hurtSoundPlayed) {
                 playGameSound('./audio/chickenouch.mp3', 1);
