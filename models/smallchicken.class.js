@@ -13,6 +13,10 @@ class SmallChicken extends MovableObject {
      * @type {boolean} alive
      * @type {number} speed
      * @type {number} lastjump
+     * @property {number} xOffset - Horizontal offset for collision detection.
+     * @property {number} yOffset - Vertical offset for collision detection.
+     * @property {number} widthOffset - Width offset for collision detection.
+     * @property {number} heightOffset - Height offset for collision detection.
      */
     height = 55;
     width = 45;
@@ -20,6 +24,11 @@ class SmallChicken extends MovableObject {
     alive = true;
     speed = 0.15 + Math.random() * 0.25;
     lastjump = 0;
+
+    xOffset = 0;
+    yOffset = 3;
+    widthOffset = 0;
+    heightOffset = 5;
 
     /**
      * Array of image paths for the small chicken walking animation.
@@ -61,7 +70,7 @@ class SmallChicken extends MovableObject {
      */
     animate() {
         setStoppableInterval(() => {
-            if (!this.isAboveGround() && this.y > 455 && new Date().getTime() - this.lastjump > 550 && this.alive) {
+            if (!this.isAboveGround() && this.y > 455 && new Date().getTime() - this.lastjump > 500 && this.alive) {
                 this.y = 457;
             }
             if(this.alive && !this.isAboveGround()) {

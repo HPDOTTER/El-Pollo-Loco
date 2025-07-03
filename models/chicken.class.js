@@ -11,11 +11,20 @@ class Chicken extends MovableObject {
      * @type {number} width 
      * @type {number} y
      * @type {boolean} alive
+     * @property {number} xOffset - Horizontal offset for collision detection.
+     * @property {number} yOffset - Vertical offset for collision detection.
+     * @property {number} widthOffset - Width offset for collision detection.
+     * @property {number} heightOffset - Height offset for collision detection.
      */
     height = 70;
     width = 60;
     y = 445;
     alive = true;
+
+    xOffset = 3;
+    yOffset = 3;
+    widthOffset = 7;
+    heightOffset = 5;
 
     /**
      * Array of image paths for the walking animation of the chicken.

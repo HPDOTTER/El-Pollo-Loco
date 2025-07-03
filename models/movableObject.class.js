@@ -53,7 +53,7 @@ class MovableObject extends DrawableObject {
         } else if (world.level.enemies[0].endbosslife <= 0 && this instanceof Endboss) {
             return true;
         } else {
-            return (this.y + this.height) < 510;
+            return (this.y + this.height) <= 510;
         }   
     }
 
@@ -68,6 +68,16 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+    }
+
+    playAnimationOnce(images) {
+        if (this.currentImage < images.length) {
+            let path = images[this.currentImage];
+            this.img = this.imageCache[path];
+            this.currentImage++;
+        } else {
+            this.currentImage = 0; // Reset to allow re-animation
+        }
     }
 
     /**

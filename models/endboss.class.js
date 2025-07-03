@@ -136,7 +136,7 @@ class Endboss extends MovableObject {
                 this.winGame();
             } else if(this.isHurting){
                 this.endbossHurtAnimation();
-            } else if (world.character.x > 3100 && (this.i < 180)) {
+            } else if (world.character.x > 3000 && (this.i < 180)) {
                 this.endbossAproachAnimation();
             } else if (this.previousEndbosslife !== this.endbosslife) {
                 this.endbossHurtDelay();

@@ -153,12 +153,12 @@ class Character extends MovableObject {
     */
     handleCharacterState() {
         if (this.isDead()) return this.deathAnimation();
-        if (this.y > 280 && this.alive) this.y = 289.2;
+        if (this.y > 282 && this.alive && this.speedY < 0) this.y = 289.2;
         if ((this.world.Keyboard.SPACE || this.world.Keyboard.UP) && !this.isAboveGround() && this.alive) {
             this.jump();
             this.i = 0;
             playGameSound('./audio/jumping.mp3', 1);
-        } else if (this.isAboveGround()) this.playAnimation(this.Images_jumping);
+        } else if (this.isAboveGround()) this.playAnimationOnce(this.Images_jumping);
         else if (this.isHurt() && !this.isDead()) this.hurtAnimation();
         else if (this.speedY < 0) this.idleAndDeepIdleAnimation();
     }
@@ -170,6 +170,7 @@ class Character extends MovableObject {
         if (this.world.Keyboard.DOWN && !this.lastDownPressed && this.world.character.bottlebar !== 0) {
             this.throwBottle();
             this.playBottleRotatingAudio();
+            this.i = 0;
         }
         this.lastDownPressed = this.world.Keyboard.DOWN;
     }

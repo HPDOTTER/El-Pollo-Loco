@@ -62,7 +62,7 @@ class World {
      * @method
      */
     run() {
-        setStoppableInterval(() => this.checkCollision(), 1000 / 60);
+        setStoppableInterval(() => this.checkCollision(), 1000 / 100);
     }
 
     /**
@@ -162,6 +162,17 @@ class World {
                 }, 1000);
             }
         });
+    }
+
+        /**
+     * Stops the bottle rotating sound by calling the character's stopBottleRotatingSound method.
+     *
+     * @method
+     */
+    stopBottleSound() {
+        if (this.character && typeof this.character.stopBottleRotatingSound === 'function') {
+            this.character.stopBottleRotatingSound();
+        }
     }
 
     /**
@@ -323,7 +334,7 @@ class World {
             this.handleObjectDirection(MO);
             // Uncomment the following to draw hitboxes:
             // MO.drawFrame(this.ctx);
-            MO.drawOffsetFrame(this.ctx);
+            // MO.drawOffsetFrame(this.ctx);
         }
     }
 
@@ -379,14 +390,4 @@ class World {
         }
     }
 
-    /**
-     * Stops the bottle rotating sound by calling the character's stopBottleRotatingSound method.
-     *
-     * @method
-     */
-    stopBottleSound() {
-        if (this.character && typeof this.character.stopBottleRotatingSound === 'function') {
-            this.character.stopBottleRotatingSound();
-        }
-    }
 }

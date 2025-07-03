@@ -75,7 +75,9 @@ class ThrowableObject extends MovableObject {
                 clearInterval(this.throwRightIntervall);
                 this.speedY = -1;
                 this.x += 0.5;
-                this.playAnimation(this.Bottle_exploding);
+                setTimeout(() => {
+                    this.playAnimation(this.Bottle_exploding);
+                }, 1000 / 15);
             } else {
                 this.playAnimation(this.Bottle_rotating);
             }
