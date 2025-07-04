@@ -175,21 +175,36 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} True if a collision is detected; otherwise, false.
      */
     isColliding(MO) {
-        const x1 = this.x + (this.xOffset || 0);
-        const y1 = this.y + (this.yOffset || 0);
-        const w1 = (this.width || 0) - (this.widthOffset || 0);
-        const h1 = (this.height || 0) - (this.heightOffset || 0);
+        const hitbox1 = this.getHitbox();
+        const hitbox2 = MO.getHitbox();
+        return this.hitboxesOverlap(hitbox1, hitbox2);
+    }
 
-        const x2 = MO.x + (MO.xOffset || 0);
-        const y2 = MO.y + (MO.yOffset || 0);
-        const w2 = (MO.width || 0) - (MO.widthOffset || 0);
-        const h2 = (MO.height || 0) - (MO.heightOffset || 0);
+    /**
+     * Returns the hitbox of the object, considering offsets.
+     * @returns {{x: number, y: number, w: number, h: number}}
+     */
+    getHitbox() {
+        return {
+            x: this.x + (this.xOffset || 0),
+            y: this.y + (this.yOffset || 0),
+            w: (this.width || 0) - (this.widthOffset || 0),
+            h: (this.height || 0) - (this.heightOffset || 0)
+        };
+    }
 
+    /**
+     * Checks if two hitboxes overlap.
+     * @param {{x: number, y: number, w: number, h: number}} hb1 
+     * @param {{x: number, y: number, w: number, h: number}} hb2 
+     * @returns {boolean}
+     */
+    hitboxesOverlap(hb1, hb2) {
         return (
-            x1 < x2 + w2 &&
-            x1 + w1 > x2 &&
-            y1 < y2 + h2 &&
-            y1 + h1 > y2
+            hb1.x < hb2.x + hb2.w &&
+            hb1.x + hb1.w > hb2.x &&
+            hb1.y < hb2.y + hb2.h &&
+            hb1.y + hb1.h > hb2.y
         );
     }
 
@@ -207,3 +222,4 @@ class MovableObject extends DrawableObject {
         ctx.restore();
     }
 }
+

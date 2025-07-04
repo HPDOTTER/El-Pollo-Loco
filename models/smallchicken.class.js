@@ -70,23 +70,35 @@ class SmallChicken extends MovableObject {
      */
     animate() {
         setStoppableInterval(() => {
-            if (!this.isAboveGround() && this.y > 455 && new Date().getTime() - this.lastjump > 500 && this.alive) {
-                this.y = 457;
-            }
-            if(this.alive && !this.isAboveGround()) {
+            if (this.shouldSnapToGround()) this.y = 457;
+            if (this.alive && !this.isAboveGround()) {
                 this.moveLeft();
                 this.playAnimation(this.Small_chicken_walking);
-                if (new Date().getTime() - this.lastjump > 18000 * Math.random()) {
-                    this.jump();
-                    this.lastjump = new Date().getTime();
-                }
+                if (this.shouldJump()) this.jumpAndUpdateLastJump();
             } else if (!this.alive) {
-                this.loadImage('./img/3_enemies_chicken/chicken_small/2_dead/dead.png');
-                if (!this.soundPlayed) {
-                    playGameSound('./audio/chickentoy.mp3', 0.3);
-                    this.soundPlayed = true;
-                }
-            } 
-        }, 1000 / 60); 
+                this.handleDeath();
+            }
+        }, 1000 / 60);
+    }
+
+    shouldSnapToGround() {
+        return !this.isAboveGround() && this.y > 455 && new Date().getTime() - this.lastjump > 500 && this.alive;
+    }
+
+    shouldJump() {
+        return new Date().getTime() - this.lastjump > 18000 * Math.random();
+    }
+
+    jumpAndUpdateLastJump() {
+        this.jump();
+        this.lastjump = new Date().getTime();
+    }
+
+    handleDeath() {
+        this.loadImage('./img/3_enemies_chicken/chicken_small/2_dead/dead.png');
+        if (!this.soundPlayed) {
+            playGameSound('./audio/chickentoy.mp3', 0.3);
+            this.soundPlayed = true;
+        }
     }
 }

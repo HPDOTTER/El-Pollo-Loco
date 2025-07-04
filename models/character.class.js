@@ -153,7 +153,7 @@ class Character extends MovableObject {
     */
     handleCharacterState() {
         if (this.isDead()) return this.deathAnimation();
-        if (this.y > 282 && this.alive && this.speedY < 0) this.y = 289.2;
+        if (this.y > 282 && this.alive && this.speedY <= 0) this.y = 289.2;
         if ((this.world.Keyboard.SPACE || this.world.Keyboard.UP) && !this.isAboveGround() && this.alive) {
             this.jump();
             this.i = 0;

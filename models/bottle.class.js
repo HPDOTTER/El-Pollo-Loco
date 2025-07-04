@@ -13,9 +13,9 @@ class Bottle extends MovableObject {
      * @type {number} widthOffset
      * @type {number} heightOffset
      */
-    xOffset = 17;
+    xOffset = 35;
     yOffset = 10;
-    widthOffset = 30;
+    widthOffset = 40;
     heightOffset = 10;
 
     /**

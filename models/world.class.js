@@ -240,15 +240,22 @@ class World {
         });
     }
 
-    /**
-     * Determines if the character is above a given enemy.
+        /**
+     * Determines if the character is above the enemy by checking whether
+     * the effective bottom of the character (y + height, adjusted by any height offset)
+     * is above the midpoint of the enemy (enemy.y plus half of its height, with y offset).
+     * Additionally, it ensures that the character's vertical speed is upward.
      *
      * @param {Enemy} enemy - The enemy to check against.
-     * @returns {boolean} True if the character is above the enemy; otherwise, false.
-     * @method
+     * @returns {boolean} True if the character is considered above the enemy; otherwise, false.
      */
     isCharacterAboveEnemy(enemy) {
-        return (this.character.y + this.character.height < enemy.y + enemy.height / 2) && this.character.speedY < 0;
+        const charYOffset = this.character.yOffset || 0;
+        const charHeightOffset = this.character.heightOffset || 0;
+        const characterBottom = this.character.y + charYOffset + this.character.height - charHeightOffset;
+        const enemyYOffset = enemy.yOffset || 0;
+        const enemyMidpoint = enemy.y + enemyYOffset + enemy.height / 2;
+        return (characterBottom < enemyMidpoint) && (this.character.speedY < 0);
     }
 
     /**

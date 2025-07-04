@@ -134,15 +134,11 @@ class Endboss extends MovableObject {
                 this.dyingEndbossSound();
                 this.playAnimation(this.Endboss_dead);
                 this.winGame();
-            } else if(this.isHurting){
-                this.endbossHurtAnimation();
-            } else if (world.character.x > 3000 && (this.i < 180)) {
-                this.endbossAproachAnimation();
-            } else if (this.previousEndbosslife !== this.endbosslife) {
-                this.endbossHurtDelay();
-            } else if ((world.character.x - this.x) > -55 && this.i > 179 && world.character.alive) {
-                this.playAnimation(this.Endboss_attack);
-            } else if (this.endbossApproachstarted) {
+            } else if(this.isHurting) this.endbossHurtAnimation();
+            else if (world.character.x > 3000 && (this.i < 180)) this.endbossAproachAnimation();
+            else if (this.previousEndbosslife !== this.endbosslife) this.endbossHurtDelay();
+            else if ((world.character.x - this.x) > -55 && this.i > 179 && world.character.alive) this.playAnimation(this.Endboss_attack);
+            else if (this.endbossApproachstarted) {
                 this.playAnimation(this.Endboss_Walk);
                 this.moveLeft(); 
             }
