@@ -159,7 +159,6 @@ class Character extends MovableObject {
             this.i = 0;
             playGameSound('./audio/jumping.mp3', 1);
         } else if (this.isAboveGround()) this.playAnimationOnce(this.Images_jumping);
-        else if (this.isHurt() && !this.isDead()) this.hurtAnimation();
         else if (this.speedY < 0) this.idleAndDeepIdleAnimation();
     }
 
@@ -184,6 +183,7 @@ class Character extends MovableObject {
         } else {
             this.lastFootstepSoundTime = null;
         }
+        if (this.isHurt() && !this.isDead()) this.hurtAnimation();
     }
 
     /**

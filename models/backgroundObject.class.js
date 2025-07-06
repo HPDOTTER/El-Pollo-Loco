@@ -5,14 +5,14 @@
  * @extends MovableObject
  */
 class BackgroundObject extends MovableObject {
+
     /**
      * The width of the background object.
      * @type {number} width
      * @type {number} height
      */
     width = 800;
-    height = 600;
-
+    height = 600;   
     /**
      * Creates an instance of BackgroundObject.
      * Loads the image from the specified path and positions the object.

@@ -22,6 +22,11 @@ class ThrowableObject extends MovableObject {
     throwLeftIntervall = null;
     throwRightIntervall = null;
 
+    xOffset = 16;
+    yOffset = 16;
+    widthOffset = 45;
+    heightOffset = 45;
+
     /**
      * Array of image paths for the bottle rotating animation.
      * @type {string[]}
@@ -70,15 +75,12 @@ class ThrowableObject extends MovableObject {
      */
     animate() {
         setStoppableInterval(() => {
-            if (this.bottlecontact) {
-                clearInterval(this.throwLeftIntervall);
-                clearInterval(this.throwRightIntervall);
-                this.speedY = -1;
-                this.x += 0.5;
-                setTimeout(() => {
-                    this.playAnimation(this.Bottle_exploding);
-                }, 1000 / 15);
-            } else {
+            if (this.bottlecontact && otherDirection == false) {
+                this.handleBottleContactRight();
+            } else if (this.bottlecontact && otherDirection == true) {
+                this.handleBottleContactLeft();
+            }
+            else {
                 this.playAnimation(this.Bottle_rotating);
             }
         }, 1000 / 60);
@@ -92,11 +94,39 @@ class ThrowableObject extends MovableObject {
     }
 
     /**
+     * Handles the bottle's contact with an object.
+     * If the bottle has made contact with an object, it clears the throw intervals,
+     * adjusts the speed and position of the bottle, and plays the exploding animation.
+     */
+    handleBottleContactRight() {
+        clearInterval(this.throwLeftIntervall);
+        clearInterval(this.throwRightIntervall);
+        this.speedY = -0.5;
+        this.x += 0.25;
+        setTimeout(() => {
+            this.playAnimation(this.Bottle_exploding);
+        }, 1000 / 15);
+    }
+
+    /**
+     * Handles the bottle's contact with an object when thrown left.
+     * Clears the throw intervals, adjusts the speed and position of the bottle,
+     * and plays the exploding animation.
+     */
+    handleBottleContactLeft() {
+        clearInterval(this.throwLeftIntervall);
+        clearInterval(this.throwRightIntervall);
+        this.speedY = -0.5;
+        this.x -= 0.25;
+        setTimeout(() => {
+            this.playAnimation(this.Bottle_exploding);
+        }, 1000 / 15);
+    }
+
+    /**
      * Initiates the leftward throw.
      * Sets upward speed, applies gravity, moves left immediately,
      * and sets an interval to continue moving left.
-     *
-     * @method
      */
     throwleft() {
         this.speedY = 16;
@@ -110,8 +140,6 @@ class ThrowableObject extends MovableObject {
     /**
      * Initiates the rightward throw.
      * Sets upward speed, applies gravity, and sets an interval to move right continuously.
-     *
-     * @method
      */
     throwright() {
         this.speedY = 16;

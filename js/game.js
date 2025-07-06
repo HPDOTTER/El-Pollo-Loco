@@ -9,9 +9,7 @@ let gameMuted = sessionStorage.getItem("gameMuted") ? JSON.parse(sessionStorage.
 let gameStarted = false;
 let otherDirection = false;
 
-if (sessionStorage.getItem("gameMuted") === null) {
-    sessionStorage.setItem("gameMuted", JSON.stringify(false));
-}
+
 
 /**
  * Background music for the game.
@@ -21,17 +19,19 @@ const backgroundMusic = new Audio('./audio/backgroundmusic.mp3');
 backgroundMusic.loop = true;
 backgroundMusic.volume = 0.05;
 
-const audioElements = document.querySelectorAll("audio");
-audioElements.forEach(audio => {
-    audio.muted = gameMuted;
-});
-backgroundMusic.muted = gameMuted;
-
 /**
  * Initializes the game by retrieving the canvas element.
  */
 function init() {
     canvas = document.getElementById('canvas');
+    if (sessionStorage.getItem("gameMuted") === null) {
+        sessionStorage.setItem("gameMuted", JSON.stringify(false));
+    }
+    const audioElements = document.querySelectorAll("audio");
+        audioElements.forEach(audio => {
+    audio.muted = gameMuted;
+    });
+    backgroundMusic.muted = gameMuted;
 }
 
 /**
