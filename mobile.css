@@ -56,7 +56,7 @@
 
 @media only screen and (max-height: 600px) {
     canvas {
-        height: 100vh;
+        height: 100svh;
         user-select: none;
     }
     .mainHeader {

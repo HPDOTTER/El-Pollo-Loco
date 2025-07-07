@@ -208,18 +208,6 @@ class MovableObject extends DrawableObject {
         );
     }
 
-    /**
-     * Flips the image horizontally for rendering.
-     * This is useful for displaying objects facing the opposite direction.
-     *
-     * @param {CanvasRenderingContext2D} ctx - The drawing context of the canvas.
-     */
-    flipImage(ctx) {
-        ctx.save();
-        ctx.translate(this.x + this.width, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(this.img, 0, this.y, this.width, this.height);
-        ctx.restore();
-    }
+    
 }
 

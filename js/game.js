@@ -8,16 +8,20 @@ let keyboard = new Keyboard();
 let gameMuted = sessionStorage.getItem("gameMuted") ? JSON.parse(sessionStorage.getItem("gameMuted")) : false;
 let gameStarted = false;
 let otherDirection = false;
-
+let bgMusicAudio = createBackgroundMusic();
 
 
 /**
  * Background music for the game.
  * @type {Audio}
- */
-const backgroundMusic = new Audio('./audio/backgroundmusic.mp3');
-backgroundMusic.loop = true;
-backgroundMusic.volume = 0.05;
+ */ 
+function createBackgroundMusic() {
+    const bgMusic = new Audio('./audio/backgroundmusic.mp3');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.05;
+    return bgMusic;
+}
+
 
 /**
  * Initializes the game by retrieving the canvas element.
@@ -31,7 +35,8 @@ function init() {
         audioElements.forEach(audio => {
     audio.muted = gameMuted;
     });
-    backgroundMusic.muted = gameMuted;
+    bgMusicAudio.muted = gameMuted;
+    this.createBackgroundMusic();
 }
 
 /**
@@ -46,7 +51,7 @@ function startGame() {
     document.getElementById('pauseButton').style.display = 'inline-block';
     canvas.style.display = 'block';
     gameStarted = true;
-    backgroundMusic.play();
+    bgMusicAudio.play();
     if (window.innerWidth <= 940) {
         document.getElementById('mobileButtonsdiv').style.visibility = 'visible';
     }
@@ -82,7 +87,7 @@ function toggleMute() {
     audioElements.forEach(audio => {
         audio.muted = gameMuted;
     });
-    backgroundMusic.muted = gameMuted;
+    bgMusicAudio.muted = gameMuted;
     const muteButton = document.getElementById('muteButton');
     muteButton.style.backgroundImage = gameMuted ? "url('./img/assets/mute.png')" : "url('./img/assets/sound.png')";
     if (gameMuted && world.character.snoringSound) {
@@ -288,3 +293,13 @@ window.addEventListener("touchend", (e) => {
         Keyboard.DOWN = false;
     }
 });
+
+/** * Prevents the default context menu from appearing on right-click for a specific element.
+ * This is useful for mobile devices where long-press actions might interfere with game controls.
+ */
+document.getElementById('canvas').oncontextmenu = function(event) {
+    event.preventDefault();
+    event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available? 
+    event.stopImmediatePropagation();
+    return false;
+};

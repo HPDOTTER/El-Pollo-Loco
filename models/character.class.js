@@ -183,7 +183,10 @@ class Character extends MovableObject {
         } else {
             this.lastFootstepSoundTime = null;
         }
-        if (this.isHurt() && !this.isDead()) this.hurtAnimation();
+        if (this.isHurt() && !this.isDead()) {
+            this.hurtAnimation();
+            this.i = 0;
+        }
     }
 
     /**
@@ -246,7 +249,7 @@ class Character extends MovableObject {
         if (!this.gameovershown) {
             setTimeout(() => {
                 stopAllIntervals();
-                backgroundMusic.pause();
+                bgMusicAudio.pause();
                 if (gameStarted) {
                     showGameOver();
                     gameStarted = false;
@@ -280,7 +283,7 @@ class Character extends MovableObject {
         this.i++;
         if (this.i > 450) {
             this.playAnimation(this.Images_sleeping);
-            if (!this.snoringSound && !gameMuted) {
+            if (!this.snoringSound && !gameMuted && this.alive) {
                 this.snoringSound = playGameSound('./audio/snoring.mp3', 0.1, true);
             }
         } else {

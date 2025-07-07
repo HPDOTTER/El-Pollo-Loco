@@ -36,8 +36,13 @@ body.imprint-page {
 
 .return-button {
     font-size: 32px;
+    font-family: 'Boogaloo';
     text-decoration: none;
     color:  rgb(38, 0, 255);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    outline: black solid 1px;
+    padding: 0px 5px;
 }
 
 .return-button:hover {

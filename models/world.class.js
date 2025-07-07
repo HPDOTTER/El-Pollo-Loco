@@ -366,11 +366,21 @@ class World {
      * @method
      */
     flipObjectHorizontally(MO) {
-        this.ctx.save();
-        this.ctx.translate(MO.x + MO.width, 0);
-        this.ctx.scale(-1, 1);
-        this.drawCharacterOrObject(MO, 0, MO.y);
-        this.ctx.restore();
+        if (MO instanceof Character) {
+            this.ctx.save();
+            this.ctx.translate(MO.x + MO.width, 0);
+            this.ctx.scale(-1, 1);
+            this.drawCharacterOrObject(MO, 0, MO.y);
+            this.ctx.restore();
+        } else {
+            this.ctx.save();
+            // Translate to the object's origin plus its width so that after the scale, the image is drawn in the original x position.
+            this.ctx.translate(MO.x + MO.width, MO.y);
+            this.ctx.scale(-1, 1);
+            // Draw the image at the top-left (0,0) of the transformed context.
+            this.ctx.drawImage(MO.img, 0, 0, MO.width, MO.height);
+            this.ctx.restore();
+        }
     }
 
     /**

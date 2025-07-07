@@ -137,8 +137,14 @@ class Endboss extends MovableObject {
             } else if(this.isHurting) this.endbossHurtAnimation();
             else if (world.character.x > 3000 && (this.i < 180)) this.endbossAproachAnimation();
             else if (this.previousEndbosslife !== this.endbosslife) this.endbossHurtDelay();
-            else if ((world.character.x - this.x) > -55 && this.i > 179 && world.character.alive) this.playAnimation(this.Endboss_attack);
-            else if (this.endbossApproachstarted) {
+            else if (this.isColliding(world.character)) this.playAnimation(this.Endboss_attack);
+            else if (world.character.x > (this.x + 250) && this.endbossApproachstarted && world.character.alive) {
+                this.otherDirection = true;
+                this.playAnimation(this.Endboss_Walk);
+                this.moveRight();
+            }
+            else if (this.endbossApproachstarted && world.character.alive) {
+                this.otherDirection = false;
                 this.playAnimation(this.Endboss_Walk);
                 this.moveLeft(); 
             }
@@ -161,7 +167,8 @@ class Endboss extends MovableObject {
                 showYouWin();
                 gameStarted = false;
             }
-            backgroundMusic.pause();
+            playGameSound('./audio/victory.mp3', 0.3);
+            bgMusicAudio.pause();
         }, 2000);
         }
         
