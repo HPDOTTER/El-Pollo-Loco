@@ -37,6 +37,7 @@ function init() {
     });
     bgMusicAudio.muted = gameMuted;
     this.createBackgroundMusic();
+    setInterval(checkRotateNotice, 1000);
 }
 
 /**
@@ -74,6 +75,7 @@ function resumeGame() {
     resumeAllIntervals();
     document.getElementById('pauseButton').style.display = 'inline-block';
     document.getElementById('playButton').style.display = 'none';
+    gameStarted = true;
 }
 
 /**
@@ -297,9 +299,27 @@ window.addEventListener("touchend", (e) => {
 /** * Prevents the default context menu from appearing on right-click for a specific element.
  * This is useful for mobile devices where long-press actions might interfere with game controls.
  */
-document.getElementById('canvas').oncontextmenu = function(event) {
-    event.preventDefault();
-    event.stopPropagation(); // not necessary in my case, could leave in case stopImmediateProp isn't available? 
-    event.stopImmediatePropagation();
-    return false;
-};
+document.addEventListener("DOMContentLoaded", () => {
+    const canvasElement = document.getElementById('canvas');
+    if (canvasElement) {
+        canvasElement.oncontextmenu = function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            return false;
+        };
+    }
+});
+
+// Check every 100 milliseconds if the rotate notice is visible.
+function checkRotateNotice() {
+    const rotateNotice = document.getElementById('rotate-notice');
+    if (rotateNotice && getComputedStyle(rotateNotice).display === 'flex') {
+        // If the game is running and the rotate notice is visible, stop the game.
+        if (gameStarted) {
+            stopGame();
+            console.log("Game stopped due to rotate notice.");
+            gameStarted = false;
+        }
+    }
+}
