@@ -81,9 +81,9 @@ class Endboss extends MovableObject {
      * Array of image paths for the Endboss dash animation.
      * @type {string[]}
      */
-    Endboss_Dash = Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G17.png')
-        .concat(Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G18.png'))
-        .concat(Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G19.png'));
+    Endboss_Dash = Array(18).fill('./img/4_enemie_boss_chicken/3_attack/G17.png')
+        .concat(Array(18).fill('./img/4_enemie_boss_chicken/3_attack/G18.png'))
+        .concat(Array(18).fill('./img/4_enemie_boss_chicken/3_attack/G19.png'));
 
     /**
      * Array of image paths for the Endboss hurt animation.

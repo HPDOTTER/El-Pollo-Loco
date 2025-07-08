@@ -81,6 +81,9 @@
     .canvas-wrapper {
         display: none;
     }
+    .instructions {
+        display: none;
+    }
 }
 
 @media only screen and (orientation: landscape) {
