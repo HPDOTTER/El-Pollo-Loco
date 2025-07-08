@@ -22,6 +22,7 @@ class Endboss extends MovableObject {
      * @type {number} yOffset
      * @type {number} widthOffset
      * @type {number} heightOffset
+     * @type {boolean} dashed
      */
     height = 350;
     width = 300;
@@ -34,6 +35,8 @@ class Endboss extends MovableObject {
     previousEndbosslife = 100;
     isHurting = false;
     hurtStartTime = 0;
+    dashed = false;
+
     xOffset = 20;
     yOffset = 50;
     widthOffset = 30;
@@ -73,6 +76,14 @@ class Endboss extends MovableObject {
         .concat(Array(8).fill('./img/4_enemie_boss_chicken/3_attack/G18.png'))
         .concat(Array(8).fill('./img/4_enemie_boss_chicken/3_attack/G19.png'))
         .concat(Array(8).fill('./img/4_enemie_boss_chicken/3_attack/G20.png'));
+
+    /**
+     * Array of image paths for the Endboss dash animation.
+     * @type {string[]}
+     */
+    Endboss_Dash = Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G17.png')
+        .concat(Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G18.png'))
+        .concat(Array(14).fill('./img/4_enemie_boss_chicken/3_attack/G19.png'));
 
     /**
      * Array of image paths for the Endboss hurt animation.
@@ -129,26 +140,73 @@ class Endboss extends MovableObject {
      */
     animate(){
         setStoppableInterval(() => {
-            if (!this.alive) {
-                this.endBossDeathAnimation();
-                this.dyingEndbossSound();
-                this.playAnimation(this.Endboss_dead);
-                this.winGame();
-            } else if(this.isHurting) this.endbossHurtAnimation();
+            if (!this.alive) this.handleEndbossWinOrLose();
+            else if (this.endbosslife <= 60 && this.alive && !this.dashed) this.endbossDash();
+            else if(this.isHurting) this.endbossHurtAnimation();
             else if (world.character.x > 3000 && (this.i < 180)) this.endbossAproachAnimation();
             else if (this.previousEndbosslife !== this.endbosslife) this.endbossHurtDelay();
             else if (this.isColliding(world.character)) this.playAnimation(this.Endboss_attack);
-            else if (world.character.x > (this.x + 250) && this.endbossApproachstarted && world.character.alive) {
-                this.otherDirection = true;
-                this.playAnimation(this.Endboss_Walk);
-                this.moveRight();
-            }
-            else if (this.endbossApproachstarted && world.character.alive) {
-                this.otherDirection = false;
-                this.playAnimation(this.Endboss_Walk);
-                this.moveLeft(); 
-            }
+            else if (world.character.x > (this.x + 250) && this.endbossApproachstarted && world.character.alive) this.endbossMoveRight();
+            else if (this.endbossApproachstarted && world.character.alive) this.endbossMoveLeft();
+            else this.playAnimation(this.Endboss_Walk);
         }, 1000 / 60);
+    }
+
+    /**
+     * Handles the Endboss's dash action.
+     * If the Endboss has not dashed yet and is facing the character,
+     * it plays the dash animation, moves the Endboss left,
+     * and sets the `dashed` flag to true to prevent repeated dashes.
+     */
+    endbossDash() {
+        if(!this.dashed) {
+            const dashDuration = 1300; 
+            const dashSpeed = 4;
+            const dashInterval = setInterval(() => {
+                this.playAnimation(this.Endboss_Dash);
+                if (this.otherDirection) {
+                    this.x += dashSpeed;
+                } else if (!this.otherDirection) {
+                    this.x -= dashSpeed;
+                }
+            }, 1000 / 60);
+            setTimeout(() => {
+                clearInterval(dashInterval);
+            }, dashDuration);
+            this.dashed = true
+        }
+    }
+
+    /**
+     * Handles the Endboss's win or lose conditions.
+     * If the Endboss is dead, it plays the death animation,
+     * plays the death sound, and calls winGame().
+     */
+    handleEndbossWinOrLose() {
+        this.endBossDeathAnimation();
+        this.dyingEndbossSound();
+        this.playAnimation(this.Endboss_dead);
+        this.winGame();
+    }
+
+    /**
+     * Moves the Endboss to the left and plays the walking animation.
+     * Sets the `otherDirection` flag to true to indicate movement direction.
+     */
+    endbossMoveLeft() {
+        this.otherDirection = false;
+        this.playAnimation(this.Endboss_Walk);
+        this.moveLeft(); 
+    }
+
+    /**
+     * Moves the Endboss to the right and plays the walking animation.
+     * Sets the `otherDirection` flag to false to indicate movement direction.
+     */
+    endbossMoveRight() {
+        this.otherDirection = true;
+        this.playAnimation(this.Endboss_Walk);
+        this.moveRight();
     }
 
     /**
