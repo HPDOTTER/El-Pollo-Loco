@@ -43,6 +43,7 @@ function init() {
 /**
  * Starts the game by initializing level 1, creating the world, updating UI elements,
  * and playing the background music.
+ * show mobile buttons if mobile device
  */
 function startGame() {
     initLevel1();
@@ -53,7 +54,7 @@ function startGame() {
     canvas.style.display = 'block';
     gameStarted = true;
     bgMusicAudio.play();
-    if (window.innerWidth <= 940) {
+    if (window.matchMedia("(pointer: coarse)").matches) {
         document.getElementById('mobileButtonsdiv').style.visibility = 'visible';
     }
     updateMuteButtonState();
@@ -300,14 +301,15 @@ window.addEventListener("touchend", (e) => {
  * This is useful for mobile devices where long-press actions might interfere with game controls.
  */
 document.addEventListener("DOMContentLoaded", () => {
-    const canvasElement = document.getElementById('canvas');
-    if (canvasElement) {
-        canvasElement.oncontextmenu = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            return false;
-        };
+    if (window.matchMedia("(pointer: coarse)").matches) {
+        const elements = document.querySelectorAll('#canvas, #mobileButtonsdiv, #stopPropagation');
+        elements.forEach((element) => {
+            element.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            });
+        });
     }
 });
 

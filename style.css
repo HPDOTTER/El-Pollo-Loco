@@ -15,11 +15,37 @@ html, body {
 body.imprint-page {
     overflow: auto;
     display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     margin-left: 20px;
 }
 
+.imprint-page header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.imprint-page footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+}
+
 .imprint-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
     background-color: rgba(255, 255, 255, 1);
+    max-width: 1440px;
     width: 80%;
     padding: 20px;
     border-radius: 10px;
@@ -28,10 +54,12 @@ body.imprint-page {
 
 .imprint-page h1 {
     margin-left: 20px;
+    max-width: 1440px;
 }
 
 .imprint-page footer {
     margin-left: 20px;
+    
 }
 
 .return-button {
@@ -302,7 +330,7 @@ button {
     background-size: 18%;
     background-repeat: no-repeat;
     background-position: center;
-    transform: rotate(45deg); /* Rotate only the pseudo-element */
+    transform: rotate(45deg);
     transform-origin: center;
 }
 

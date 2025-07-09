@@ -51,15 +51,14 @@ class Character extends MovableObject {
         .concat(Array(12).fill('./img/2_character_pepe/2_walk/W-26.png'));
 
     Images_jumping = 
-        Array(4).fill('./img/2_character_pepe/3_jump/J-31.png')
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-32.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-33.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-34.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-35.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-36.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-37.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-38.png'))
-        .concat(Array(4).fill('./img/2_character_pepe/3_jump/J-39.png'));
+        Array(1).fill('./img/2_character_pepe/3_jump/J-32.png')
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-33.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-34.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-35.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-36.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-37.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-38.png'))
+        .concat(Array(5).fill('./img/2_character_pepe/3_jump/J-39.png'));
 
     Images_hurt = 
         Array(6).fill('./img/2_character_pepe/4_hurt/H-41.png')

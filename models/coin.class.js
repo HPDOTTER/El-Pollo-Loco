@@ -16,6 +16,18 @@ class Coin extends MovableObject {
     ];
 
     /**
+     * @property {number} xOffset - Horizontal offset for collision detection.
+     * @property {number} yOffset - Vertical offset for collision detection.
+     * @property {number} widthOffset - Width offset for collision detection.
+     * @property {number} heightOffset - Height offset for collision detection.
+     */
+
+    xOffset = 3;
+    yOffset = 3;
+    widthOffset = 5;
+    heightOffset = 5;
+
+    /**
      * Constructs a new Coin instance.
      * Loads the initial coin image, preloads the animation images,
      * sets a random position within given boundaries, defines the size,

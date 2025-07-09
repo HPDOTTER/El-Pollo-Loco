@@ -6,91 +6,76 @@
 const level_end_x = 4050;
 
 /**
- * Initializes level 1 by creating a new Level instance with its enemies, clouds,
- * background objects, coins, and bottles.
- *
- * The Level instance is constructed with the following parameters:
- * - An array of enemy objects including one Endboss, multiple Chicken objects and SmallChicken objects.
- * - An array of Cloud objects.
- * - An array of BackgroundObject objects, arranged with custom x positions to create layered backgrounds.
- * - An array of Coin objects.
- * - An array of Bottle objects.
- * - The level's ending x-coordinate.
- *
- * After initializing, the global variable `level1` will reference the newly created Level object.
+ * Creates an array of enemy objects for the level.
+ * Each enemy is positioned at the end of the level.
+ * @returns {Enemy[]} An array of Enemy objects.
+ */
+function createEnemies() {
+    return [
+        new Endboss(level_end_x),
+        ...Array(6).fill().map(() => new Chicken(level_end_x)),
+        ...Array(6).fill().map(() => new SmallChicken(level_end_x)),
+    ];
+}
+
+/**
+ * Creates an array of cloud objects for the level.
+ * Each cloud is positioned at the end of the level.
+ * @returns {Cloud[]} An array of Cloud objects.
+*/
+function createClouds() {
+    return Array(5).fill().map(() => new Cloud(level_end_x));
+}
+
+/**
+ * Creates an array of background objects for the level.
+ * Each object is positioned at the end of the level.
+ * @returns {BackgroundObject[]} An array of BackgroundObject instances.
+ */
+function createBackgroundObjects() {
+    const layers = [
+        ['./img/5_background/layers/air.png', './img/5_background/layers/3_third_layer/2.png', './img/5_background/layers/2_second_layer/2.png', './img/5_background/layers/1_first_layer/2.png'],
+        ['./img/5_background/layers/air.png', './img/5_background/layers/3_third_layer/1.png', './img/5_background/layers/2_second_layer/1.png', './img/5_background/layers/1_first_layer/1.png'],
+    ];
+    const objects = [];
+    for (let i = -1; i <= 5; i++) {
+        const set = layers[i % 2 === 0 ? 0 : 1];
+        set.forEach((src, idx) => {
+            objects.push(new BackgroundObject(src, 799 * i));
+        });
+    }
+    return objects;
+}
+
+/**
+ * Creates an array of Coin objects for the level.
+ * Each coin is positioned at the end of the level.
+ * @returns {Coin[]} An array of Coin objects.
+ */
+function createCoins() {
+    return Array(5).fill().map(() => new Coin(level_end_x));
+}
+
+/**
+ * Creates an array of Bottle objects for the level.
+ * Each bottle is positioned at the end of the level.
+ * @returns {Bottle[]} An array of Bottle objects.
+ */
+function createBottles() {
+    return Array(9).fill().map(() => new Bottle(level_end_x));
+}
+
+/**
+ * Initializes level 1 with enemies, clouds, background objects, coins, bottles, and the end position.
+ * This function is called to set up the first level of the game.
  */
 function initLevel1() {
     level1 = new Level(
-        [   
-            new Endboss(level_end_x),
-            new Chicken(level_end_x),
-            new Chicken(level_end_x),
-            new Chicken(level_end_x),
-            new Chicken(level_end_x),
-            new Chicken(level_end_x),
-            new Chicken(level_end_x),
-            new SmallChicken(level_end_x),
-            new SmallChicken(level_end_x),
-            new SmallChicken(level_end_x),
-            new SmallChicken(level_end_x),
-            new SmallChicken(level_end_x),
-            new SmallChicken(level_end_x),
-        ],
-        [
-            new Cloud(level_end_x),
-            new Cloud(level_end_x),
-            new Cloud(level_end_x),
-            new Cloud(level_end_x),
-            new Cloud(level_end_x),
-        ],
-        [
-            new BackgroundObject('./img/5_background/layers/air.png', -799), 
-            new BackgroundObject('./img/5_background/layers/3_third_layer/2.png', -799),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/2.png', -799),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', -799),
-            new BackgroundObject('./img/5_background/layers/air.png', 0),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/1.png', 0),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/1.png', 0),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/1.png', 0),
-            new BackgroundObject('./img/5_background/layers/air.png', 799),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/2.png', 799),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/2.png', 799),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', 799),
-            new BackgroundObject('./img/5_background/layers/air.png', 799 * 2),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/1.png', 799 * 2),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/1.png', 799 * 2),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/1.png', 799 * 2),
-            new BackgroundObject('./img/5_background/layers/air.png', 799 * 3),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/2.png', 799 * 3),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/2.png', 799 * 3),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', 799 * 3),
-            new BackgroundObject('./img/5_background/layers/air.png', 799 * 4),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/1.png', 799 * 4),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/1.png', 799 * 4),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/1.png', 799 * 4),
-            new BackgroundObject('./img/5_background/layers/air.png', 799 * 5),
-            new BackgroundObject('./img/5_background/layers/3_third_layer/2.png', 799 * 5),
-            new BackgroundObject('./img/5_background/layers/2_second_layer/2.png', 799 * 5),
-            new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', 799 * 5),
-        ],
-        [
-            new Coin(level_end_x),
-            new Coin(level_end_x),
-            new Coin(level_end_x),
-            new Coin(level_end_x),
-            new Coin(level_end_x),
-        ],
-        [
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-            new Bottle(level_end_x),
-        ],
+        createEnemies(),
+        createClouds(),
+        createBackgroundObjects(),
+        createCoins(),
+        createBottles(),
         level_end_x
     );
 }

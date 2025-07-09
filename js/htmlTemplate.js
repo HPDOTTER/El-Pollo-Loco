@@ -26,7 +26,7 @@ function mainMenuTemplate() {
     return `
         <div class="menudiv">
             <button onclick="startGame()">Start Game</button>
-            <button onclick="showInstructions()">Instructions</button>
+            <button onclick="showInstructions()" class="instructions" >Instructions</button>
             <button onclick="showImprint()">Imprint</button>
         </div>
     `;

@@ -340,6 +340,7 @@ class World {
         if (MO.img) {
             this.handleObjectDirection(MO);
             // Uncomment the following to draw hitboxes:
+            // for Development purposes only.
             // MO.drawFrame(this.ctx);
             MO.drawOffsetFrame(this.ctx);
         }
@@ -374,10 +375,8 @@ class World {
             this.ctx.restore();
         } else {
             this.ctx.save();
-            // Translate to the object's origin plus its width so that after the scale, the image is drawn in the original x position.
             this.ctx.translate(MO.x + MO.width, MO.y);
             this.ctx.scale(-1, 1);
-            // Draw the image at the top-left (0,0) of the transformed context.
             this.ctx.drawImage(MO.img, 0, 0, MO.width, MO.height);
             this.ctx.restore();
         }

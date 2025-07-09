@@ -25,9 +25,9 @@ class SmallChicken extends MovableObject {
     speed = 0.15 + Math.random() * 0.25;
     lastjump = 0;
 
-    xOffset = 0;
+    xOffset = 5;
     yOffset = 3;
-    widthOffset = 0;
+    widthOffset = 7;
     heightOffset = 5;
 
     /**

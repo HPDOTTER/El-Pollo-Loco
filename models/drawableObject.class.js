@@ -40,9 +40,9 @@ class DrawableObject {
     }
 
     /**
+     * for Development purposes only.
      * Draws the hitbox frame of the object on a given canvas context.
      * Displays different hitboxes depending on the type of object.
-     *
      * For enemy objects, the hitbox is drawn in green using the object's own dimensions.
      * For the character, an adjusted hitbox is drawn.
      *
@@ -66,6 +66,7 @@ class DrawableObject {
     }
 
     /**
+     * for Development purposes only.
      * Draws the offset hitbox frame for the object.
      * The hitbox is adjusted based on the object's offset properties:
      * xOffset, yOffset, widthOffset, and heightOffset.
