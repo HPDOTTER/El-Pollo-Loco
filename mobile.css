@@ -51,7 +51,7 @@
         display: none;
     }
     p {
-        font-size: 1.2em !important; 
+        font-size: 1.2em; 
     }
 }
 
@@ -70,7 +70,7 @@
         display: none;
     }
     p {
-        font-size: 1.2em !important; 
+        font-size: 1.2em; 
     }
 }
 
@@ -91,15 +91,15 @@
         display: none;
     }
     #mobileButtonsdiv {
-        display: flex !important;
+        display: flex;
     }
 }
 
-@media (max-width: 1268px), (hover: none) and (pointer: coarse) {
+@media (max-width: 800px), (hover: none) and (pointer: coarse) {
     .instructions {
         display: none;
     }
     #mobileButtonsdiv {
-        display: flex !important;
+        display: flex;
     }
 }

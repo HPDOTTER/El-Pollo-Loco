@@ -342,7 +342,7 @@ class World {
             // Uncomment the following to draw hitboxes:
             // for Development purposes only.
             // MO.drawFrame(this.ctx);
-            MO.drawOffsetFrame(this.ctx);
+            // MO.drawOffsetFrame(this.ctx);
         }
     }
 
